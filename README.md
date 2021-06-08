@@ -1,9 +1,17 @@
 ## Table of Contents
 1. [ Authentication ](#authentication)
 2. [ Creating an Object ](#creating-an-object)
-3. [ Reading an Object ](#reading-an-object)
-4. [ Updating an Object ](#updating-an-object)
-5. [ Deleting an Object ](#deleting-an-object)
+3. [ Creating an Object from JSON ](#creating-an-object-from-json)
+4. [ Reading an Object ](#reading-an-object)
+5. [ Updating an Object ](#updating-an-object)
+6. [ Deleting an Object ](#deleting-an-object)
+7. [ Triggering a Workflow ](#triggering-a-workflow)
+8. [ Monitoring a Workflow ](#monitoring-a-workflow)
+9. [ Debugging ](#debugging)
+
+
+
+
 
 
 
@@ -79,11 +87,25 @@ api_response = api_instance.create_boot_precision_policy(boot_precision_policy)
 <a name="creating-an-object"></a>
 ## 2. Creating an Object
 
+<a name="creating-an-object-from-json"></a>
+## 3. Creating an Object from JSON
+
 <a name="reading-an-object"></a>
-## 3. Reading an Object
+## 4. Reading an Object
 
 <a name="updating-an-object"></a>
-## 4. Updating an Object
+## 5. Updating an Object
 
 <a name="deleting-an-object"></a>
-## 5. Deleting an Object
+## 6. Deleting an Object
+
+<a name="triggering-a-workflow"></a>
+## 7. Triggering a Workflow
+
+<a name="monitoring-a-workflow"></a>
+## 8. Monitoring a Workflow
+
+<a name="debugging"></a>
+## 8. Debugging
+
+
