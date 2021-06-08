@@ -20,7 +20,7 @@
 
 - Start with creating an API Client object by specifying an API Key and an API Secret file path.
 - This method also specifies which endpoint will the client connect to.
-- There is no explicit login when using API Client and Secret. Every message carries the information that authenticates it.
+- There is no explicit login when using API Client and Secret. Every message carries the information required for authentication.
 
 ```python
 import intersight
