@@ -39,33 +39,31 @@ def create_organization():
     return organization
 
 
-# Enter a context with an instance of the API client.
-with api_client:
-    # Create an instance of the API class.
-    api_instance = boot_api.BootApi(api_client)
+# Create an instance of the API class.
+api_instance = boot_api.BootApi(api_client)
 
-    # Create an instance of local_cdd, local_disk, organization and list of boot_devices.
-    boot_local_cdd = create_boot_local_cdd()
-    boot_local_disk = create_boot_local_disk()
-    organization = create_organization()
-    boot_devices = [
-        boot_local_disk,
-        boot_local_cdd,
-    ]
+# Create an instance of local_cdd, local_disk, organization and list of boot_devices.
+boot_local_cdd = create_boot_local_cdd()
+boot_local_disk = create_boot_local_disk()
+organization = create_organization()
+boot_devices = [
+    boot_local_disk,
+    boot_local_cdd,
+]
 
-    # BootPrecisionPolicy | The 'boot.PrecisionPolicy' resource to create.
-    boot_precision_policy = BootPrecisionPolicy()
+# BootPrecisionPolicy | The 'boot.PrecisionPolicy' resource to create.
+boot_precision_policy = BootPrecisionPolicy()
 
-    # Setting all the attributes for boot_precison_policy instance.
-    boot_precision_policy.set_attribute("name", "sample_boot_policy1")
-    boot_precision_policy.set_attribute("description", "sample boot precision policy")
-    boot_precision_policy.set_attribute("boot_devices", boot_devices)
-    boot_precision_policy.set_attribute("organization", organization)
+# Setting all the attributes for boot_precison_policy instance.
+boot_precision_policy.set_attribute("name", "sample_boot_policy1")
+boot_precision_policy.set_attribute("description", "sample boot precision policy")
+boot_precision_policy.set_attribute("boot_devices", boot_devices)
+boot_precision_policy.set_attribute("organization", organization)
 
-    # example passing only required values which don't have defaults set
-    try:
-        # Create a 'boot.PrecisionPolicy' resource.
-        api_response = api_instance.create_boot_precision_policy(boot_precision_policy)
-        pprint(api_response)
-    except intersight.ApiException as e:
-        print("Exception when calling BootApi->create_boot_precision_policy: %s\n" % e)
+# example passing only required values which don't have defaults set
+try:
+    # Create a 'boot.PrecisionPolicy' resource.
+    api_response = api_instance.create_boot_precision_policy(boot_precision_policy)
+    pprint(api_response)
+except intersight.ApiException as e:
+    print("Exception when calling BootApi->create_boot_precision_policy: %s\n" % e)

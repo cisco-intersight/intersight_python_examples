@@ -65,49 +65,48 @@ def create_organization(moid):
 
     return organization
 
-# Enter a context with an instance of the API client.
-with api_client:
-    # Create an instance of the API class.
-    api_instance = boot_api.BootApi(api_client)
 
-    # Getting the response for existing object.
-    response = get_boot_precision_policy(api_client)
+# Create an instance of the API class.
+api_instance = boot_api.BootApi(api_client)
 
-    # Handling error scenario if get_boot_precision_policy does not return any entry.
-    if not response.results:
-        raise NotFoundException(reason="The response does not contain any entry for boot precision policy. "
-                                       "Please create a boot precision policy and then update it.")
+# Getting the response for existing object.
+response = get_boot_precision_policy(api_client)
 
-    # Fetch the organization Moid and boot precision policy moid from the Result's first entry.
-    organization_moid = response.results[0].organization['moid']
-    moid = response.results[0].moid
+# Handling error scenario if get_boot_precision_policy does not return any entry.
+if not response.results:
+    raise NotFoundException(reason="The response does not contain any entry for boot precision policy. "
+                                   "Please create a boot precision policy and then update it.")
 
-    # Create an instance of hdd_device, iscsi, pxe, organization and list of boot_devices.
-    boot_hdd_device = create_boot_sdcard()
-    boot_iscsi = create_boot_iscsi()
-    boot_pxe = create_boot_pxe()
-    organization = create_organization(organization_moid)
-    boot_devices = [
-        boot_hdd_device,
-        boot_iscsi,
-        boot_pxe,
-    ]
+# Fetch the organization Moid and boot precision policy moid from the Result's first entry.
+organization_moid = response.results[0].organization['moid']
+moid = response.results[0].moid
 
-    # BootPrecisionPolicy | The 'boot.PrecisionPolicy' resource to create.
-    boot_precision_policy = BootPrecisionPolicy()
+# Create an instance of hdd_device, iscsi, pxe, organization and list of boot_devices.
+boot_hdd_device = create_boot_sdcard()
+boot_iscsi = create_boot_iscsi()
+boot_pxe = create_boot_pxe()
+organization = create_organization(organization_moid)
+boot_devices = [
+    boot_hdd_device,
+    boot_iscsi,
+    boot_pxe,
+]
 
-    # Setting all the attributes for boot_precison_policy instance.
-    boot_precision_policy.set_attribute("name", "updated_boot_policy1")
-    boot_precision_policy.set_attribute("description", "Updated boot precision policy")
-    boot_precision_policy.set_attribute("boot_devices", boot_devices)
-    boot_precision_policy.set_attribute("organization", organization)
+# BootPrecisionPolicy | The 'boot.PrecisionPolicy' resource to create.
+boot_precision_policy = BootPrecisionPolicy()
 
-    # example passing only required values which don't have defaults set
-    try:
-        # Update a 'boot.PrecisionPolicy' resource.
-        api_response = api_instance.update_boot_precision_policy(
-            boot_precision_policy=boot_precision_policy,
-            moid=moid)
-        pprint(api_response)
-    except intersight.ApiException as e:
-        print("Exception when calling BootApi->update_boot_precision_policy: %s\n" % e)
+# Setting all the attributes for boot_precison_policy instance.
+boot_precision_policy.set_attribute("name", "updated_boot_policy1")
+boot_precision_policy.set_attribute("description", "Updated boot precision policy")
+boot_precision_policy.set_attribute("boot_devices", boot_devices)
+boot_precision_policy.set_attribute("organization", organization)
+
+# example passing only required values which don't have defaults set
+try:
+    # Update a 'boot.PrecisionPolicy' resource.
+    api_response = api_instance.update_boot_precision_policy(
+        boot_precision_policy=boot_precision_policy,
+        moid=moid)
+    pprint(api_response)
+except intersight.ApiException as e:
+    print("Exception when calling BootApi->update_boot_precision_policy: %s\n" % e)

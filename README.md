@@ -85,7 +85,7 @@ api_response = api_instance.create_boot_precision_policy(boot_precision_policy)
 <a name="creating-an-object"></a>
 ## 2. Creating an Object
 
-This step help user to create an object with the help of python intersight SDK.
+This step helps user to create an object with the help of python intersight SDK.
 In the below example we are going to create a boot precision policy.
 First the instance of Model: BootPrecisionPolicy is created and then all the attributes
 required to create the policy is set using the model object.
@@ -130,42 +130,40 @@ def create_organization():
     return organization
 
 
-# Enter a context with an instance of the API client.
-with api_client:
-    # Create an instance of the API class.
-    api_instance = boot_api.BootApi(api_client)
+# Create an instance of the API class.
+api_instance = boot_api.BootApi(api_client)
 
-    # Create an instance of local_cdd, local_disk, organization and list of boot_devices.
-    boot_local_cdd = create_boot_local_cdd()
-    boot_local_disk = create_boot_local_disk()
-    organization = create_organization()
-    boot_devices = [
-        boot_local_disk,
-        boot_local_cdd,
-    ]
+# Create an instance of local_cdd, local_disk, organization and list of boot_devices.
+boot_local_cdd = create_boot_local_cdd()
+boot_local_disk = create_boot_local_disk()
+organization = create_organization()
+boot_devices = [
+    boot_local_disk,
+    boot_local_cdd,
+]
 
-    # BootPrecisionPolicy | The 'boot.PrecisionPolicy' resource to create.
-    boot_precision_policy = BootPrecisionPolicy()
+# BootPrecisionPolicy | The 'boot.PrecisionPolicy' resource to create.
+boot_precision_policy = BootPrecisionPolicy()
 
-    # Setting all the attributes for boot_precison_policy instance.
-    boot_precision_policy.set_attribute("name", "sample_boot_policy1")
-    boot_precision_policy.set_attribute("description", "sample boot precision policy")
-    boot_precision_policy.set_attribute("boot_devices", boot_devices)
-    boot_precision_policy.set_attribute("organization", organization)
+# Setting all the attributes for boot_precison_policy instance.
+boot_precision_policy.set_attribute("name", "sample_boot_policy1")
+boot_precision_policy.set_attribute("description", "sample boot precision policy")
+boot_precision_policy.set_attribute("boot_devices", boot_devices)
+boot_precision_policy.set_attribute("organization", organization)
 
-    # example passing only required values which don't have defaults set
-    try:
-        # Create a 'boot.PrecisionPolicy' resource.
-        api_response = api_instance.create_boot_precision_policy(boot_precision_policy)
-        pprint(api_response)
-    except intersight.ApiException as e:
-        print("Exception when calling BootApi->create_boot_precision_policy: %s\n" % e)
+# example passing only required values which don't have defaults set
+try:
+    # Create a 'boot.PrecisionPolicy' resource.
+    api_response = api_instance.create_boot_precision_policy(boot_precision_policy)
+    pprint(api_response)
+except intersight.ApiException as e:
+    print("Exception when calling BootApi->create_boot_precision_policy: %s\n" % e)
 ```
 
 <a name="creating-an-object-from-json"></a>
 ## 3. Creating an Object from JSON
 
-This step help user to create an object with the help of python intersight SDK.
+This step helps user to create an object with the help of python intersight SDK.
 In the below example we are going to create a boot precision policy.
 The program will parse the input json file to fetch the json payload and use this data.
 The instance of Model: BootPrecisionPolicy is created using parsed json data is as a keyword arguement.
@@ -214,35 +212,34 @@ api_key_file = "~/api_key_file_path"
 
 api_client = get_api_client(api_key, api_key_file)
 
-# Enter a context with an instance of the API client.
-with api_client:
-    # Create an instance of the API class.
-    api_instance = boot_api.BootApi(api_client)
 
-    data_json_file_path = "data.json"
-    with open(data_json_file_path, "r") as json_data_file:
-        json_data = json_data_file.read()
+# Create an instance of the API class.
+api_instance = boot_api.BootApi(api_client)
 
-    # Loading the json objects into python dictionary.
-    data = json.loads(json_data)
+data_json_file_path = "data.json"
+with open(data_json_file_path, "r") as json_data_file:
+    json_data = json_data_file.read()
 
-    # BootPrecisionPolicy | The 'boot.PrecisionPolicy' resource to create.
-    boot_precision_policy = BootPrecisionPolicy(**data, _spec_property_naming=True,
-                                                _configuration=api_client.configuration)
+# Loading the json objects into python dictionary.
+data = json.loads(json_data)
 
-    # example passing only required values which don't have defaults set
-    try:
-        # Create a 'boot.PrecisionPolicy' resource.
-        api_response = api_instance.create_boot_precision_policy(boot_precision_policy)
-        pprint(api_response)
-    except intersight.ApiException as e:
-        print("Exception when calling BootApi->create_boot_precision_policy: %s\n" % e)
+# BootPrecisionPolicy | The 'boot.PrecisionPolicy' resource to create.
+boot_precision_policy = BootPrecisionPolicy(**data, _spec_property_naming=True,
+                                            _configuration=api_client.configuration)
+
+# example passing only required values which don't have defaults set
+try:
+    # Create a 'boot.PrecisionPolicy' resource.
+    api_response = api_instance.create_boot_precision_policy(boot_precision_policy)
+    pprint(api_response)
+except intersight.ApiException as e:
+    print("Exception when calling BootApi->create_boot_precision_policy: %s\n" % e)
 ```
 
 <a name="reading-an-object"></a>
 ## 4. Reading an Object
 
-This step help user to read an object with the help of python intersight SDK.
+This step helps user to read an object with the help of python intersight SDK.
 In the below example we are going to read all the results for boot precision policy.
 
 ```python
@@ -255,25 +252,24 @@ api_key_file = "~/api_key_file_path"
 
 api_client = get_api_client(api_key, api_key_file)
 
-# Enter a context with an instance of the API client
-with api_client:
-    # Create an instance of the API class
-    api_instance = boot_api.BootApi(api_client)
 
-    # example passing only required values which don't have defaults set
-    # and optional values
-    try:
-        # Read a 'boot.PrecisionPolicy' resource.
-        api_response = api_instance.get_boot_precision_policy_list()
-        pprint(api_response)
-    except intersight.ApiException as e:
-        print("Exception when calling BootApi->get_boot_precision_policy_list: %s\n" % e)
+# Create an instance of the API class
+api_instance = boot_api.BootApi(api_client)
+
+# example passing only required values which don't have defaults set
+# and optional values
+try:
+    # Read a 'boot.PrecisionPolicy' resource.
+    api_response = api_instance.get_boot_precision_policy_list()
+    pprint(api_response)
+except intersight.ApiException as e:
+    print("Exception when calling BootApi->get_boot_precision_policy_list: %s\n" % e)
 ```
 
 <a name="updating-an-object"></a>
 ## 5. Updating an Object
 
-This step help user to update an object with the help of python intersight SDK.
+This step helps user to update an object with the help of python intersight SDK.
 In the below example we are going to update a boot precision policy.
 First the instance of Model: BootPrecisionPolicy is created and then all the attributes
 required to update the policy is set using the model object.
@@ -350,58 +346,57 @@ def create_organization(moid):
 
     return organization
 
-# Enter a context with an instance of the API client.
-with api_client:
-    # Create an instance of the API class.
-    api_instance = boot_api.BootApi(api_client)
 
-    # Getting the response for existing object.
-    response = get_boot_precision_policy(api_client)
+# Create an instance of the API class.
+api_instance = boot_api.BootApi(api_client)
 
-    # Handling error scenario if get_boot_precision_policy does not return any entry.
-    if not response.results:
-        raise NotFoundException(reason="The response does not contain any entry for boot precision policy. "
-                                       "Please create a boot precision policy and then update it.")
+# Getting the response for existing object.
+response = get_boot_precision_policy(api_client)
 
-    # Fetch the organization Moid and boot precision policy moid from the Result's first entry.
-    organization_moid = response.results[0].organization['moid']
-    moid = response.results[0].moid
+# Handling error scenario if get_boot_precision_policy does not return any entry.
+if not response.results:
+    raise NotFoundException(reason="The response does not contain any entry for boot precision policy. "
+                                   "Please create a boot precision policy and then update it.")
 
-    # Create an instance of hdd_device, iscsi, pxe, organization and list of boot_devices.
-    boot_hdd_device = create_boot_sdcard()
-    boot_iscsi = create_boot_iscsi()
-    boot_pxe = create_boot_pxe()
-    organization = create_organization(organization_moid)
-    boot_devices = [
-        boot_hdd_device,
-        boot_iscsi,
-        boot_pxe,
-    ]
+# Fetch the organization Moid and boot precision policy moid from the Result's first entry.
+organization_moid = response.results[0].organization['moid']
+moid = response.results[0].moid
 
-    # BootPrecisionPolicy | The 'boot.PrecisionPolicy' resource to create.
-    boot_precision_policy = BootPrecisionPolicy()
+# Create an instance of hdd_device, iscsi, pxe, organization and list of boot_devices.
+boot_hdd_device = create_boot_sdcard()
+boot_iscsi = create_boot_iscsi()
+boot_pxe = create_boot_pxe()
+organization = create_organization(organization_moid)
+boot_devices = [
+    boot_hdd_device,
+    boot_iscsi,
+    boot_pxe,
+]
 
-    # Setting all the attributes for boot_precison_policy instance.
-    boot_precision_policy.set_attribute("name", "updated_boot_policy1")
-    boot_precision_policy.set_attribute("description", "Updated boot precision policy")
-    boot_precision_policy.set_attribute("boot_devices", boot_devices)
-    boot_precision_policy.set_attribute("organization", organization)
+# BootPrecisionPolicy | The 'boot.PrecisionPolicy' resource to create.
+boot_precision_policy = BootPrecisionPolicy()
 
-    # example passing only required values which don't have defaults set
-    try:
-        # Update a 'boot.PrecisionPolicy' resource.
-        api_response = api_instance.update_boot_precision_policy(
-            boot_precision_policy=boot_precision_policy,
-            moid=moid)
-        pprint(api_response)
-    except intersight.ApiException as e:
-        print("Exception when calling BootApi->update_boot_precision_policy: %s\n" % e)
+# Setting all the attributes for boot_precison_policy instance.
+boot_precision_policy.set_attribute("name", "updated_boot_policy1")
+boot_precision_policy.set_attribute("description", "Updated boot precision policy")
+boot_precision_policy.set_attribute("boot_devices", boot_devices)
+boot_precision_policy.set_attribute("organization", organization)
+
+# example passing only required values which don't have defaults set
+try:
+    # Update a 'boot.PrecisionPolicy' resource.
+    api_response = api_instance.update_boot_precision_policy(
+        boot_precision_policy=boot_precision_policy,
+        moid=moid)
+    pprint(api_response)
+except intersight.ApiException as e:
+    print("Exception when calling BootApi->update_boot_precision_policy: %s\n" % e)
 ```
 
 <a name="deleting-an-object"></a>
 ## 6. Deleting an Object
 
-This step help user to delete an object with the help of python intersight SDK.
+This step helps user to delete an object with the help of python intersight SDK.
 In the below example we are going to delete a boot precision policy.
 The read object operation is performed to fetch:
 - Moid associated to boot precision policy.
@@ -419,6 +414,7 @@ api_key_file = "~/api_key_file_path"
 
 api_client = get_api_client(api_key, api_key_file)
 
+
 def get_boot_precision_policy(api_client):
     # Enter a context with an instance of the API client
     with api_client:
@@ -435,29 +431,27 @@ def get_boot_precision_policy(api_client):
     return api_response
 
 
-# Enter a context with an instance of the API client
-with api_client:
-    # Create an instance of the API class
-    api_instance = boot_api.BootApi(api_client)
+# Create an instance of the API class
+api_instance = boot_api.BootApi(api_client)
 
-    # Getting the response for existing object.
-    response = get_boot_precision_policy(api_client)
+# Getting the response for existing object.
+response = get_boot_precision_policy(api_client)
 
-    # Handling error scenario if get_boot_precision_policy does not return any entry.
-    if not response.results:
-        raise NotFoundException(reason="The response does not contain any entry for boot precision policy. "
-                                       "Please create a boot precision policy and then delete it.")
+# Handling error scenario if get_boot_precision_policy does not return any entry.
+if not response.results:
+    raise NotFoundException(reason="The response does not contain any entry for boot precision policy. "
+                                   "Please create a boot precision policy and then delete it.")
 
-    # Fetching the moid from the Result's first entry.
-    moid = response.results[0].moid
+# Fetching the moid from the Result's first entry.
+moid = response.results[0].moid
 
-    # example passing only required values which don't have defaults set
-    try:
-        # Delete a 'boot.PrecisionPolicy' resource.
-        api_instance.delete_boot_precision_policy(moid)
-        print(f"Deletion for moid: %s was successful" % moid)
-    except intersight.ApiException as e:
-        print("Exception when calling BootApi->delete_boot_precision_policy: %s\n" % e)
+# example passing only required values which don't have defaults set
+try:
+    # Delete a 'boot.PrecisionPolicy' resource.
+    api_instance.delete_boot_precision_policy(moid)
+    print(f"Deletion for moid: %s was successful" % moid)
+except intersight.ApiException as e:
+    print("Exception when calling BootApi->delete_boot_precision_policy: %s\n" % e)
 ```
 
 <a name="triggering-a-workflow"></a>
