@@ -12,6 +12,7 @@ from intersight.model.snmp_user import SnmpUser
 from intersight.model.organization_organization_relationship import OrganizationOrganizationRelationship
 from pprint import pprint
 import intersight
+import sys
 
 api_key = "api_key"
 api_key_file = "~/api_key_file_path"
@@ -53,9 +54,10 @@ def create_server_profile():
         # Create a 'server.Profile' resource.
         api_response = api_instance.create_server_profile(server_profile)
         pprint(api_response)
+        return api_response
     except intersight.ApiException as e:
         print("Exception when calling ServerApi->create_server_profile: %s\n" % e)
-    return api_response
+        sys.exit(1)
 
 
 def create_ntp_policy(server_profile_moid):
@@ -83,9 +85,10 @@ def create_ntp_policy(server_profile_moid):
         # Create a 'ntp.Policy' resource.
         api_response = api_instance.create_ntp_policy(ntp_policy)
         pprint(api_response)
+        return api_response
     except intersight.ApiException as e:
         print("Exception when calling NtpApi->create_ntp_policy: %s\n" % e)
-    return api_response
+        sys.exit(1)
 
 
 def create_smtp_policy(server_profile_moid):
@@ -114,9 +117,10 @@ def create_smtp_policy(server_profile_moid):
         # Create a 'smtp.Policy' resource.
         api_response = api_instance.create_smtp_policy(smtp_policy)
         pprint(api_response)
+        return api_response
     except intersight.ApiException as e:
         print("Exception when calling SmtpApi->create_smtp_policy: %s\n" % e)
-    return api_response
+        sys.exit(1)
 
 
 def create_snmp_policy(server_profile_moid):
@@ -157,9 +161,10 @@ def create_snmp_policy(server_profile_moid):
         # Create a 'smtp.Policy' resource.
         api_response = api_instance.create_snmp_policy(snmp_policy)
         pprint(api_response)
+        return api_response
     except intersight.ApiException as e:
         print("Exception when calling SmtpApi->create_smtp_policy: %s\n" % e)
-    return api_response
+        sys.exit(1)
 
 
 # create a server profile
