@@ -78,7 +78,7 @@ with api_client:
         raise NotFoundException(reason="The response does not contain any entry for boot precision policy. "
                                        "Please create a boot precision policy and then update it.")
 
-    # Fetch the organization Moid and boot precision policy moid.
+    # Fetch the organization Moid and boot precision policy moid from the Result's first entry.
     organization_moid = response.results[0].organization['moid']
     moid = response.results[0].moid
 
