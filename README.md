@@ -5,9 +5,12 @@
 4. [ Reading an Object ](#reading-an-object)
 5. [ Updating an Object ](#updating-an-object)
 6. [ Deleting an Object ](#deleting-an-object)
-7. [ Triggering a Workflow ](#triggering-a-workflow)
-8. [ Monitoring a Workflow ](#monitoring-a-workflow)
-9. [ Debugging ](#debugging)
+7. [ Example - Server Configuration ](#server-configuration)
+8. [ Example - Firmware Upgrade ](#firmware-upgrade)
+9. [ Example - OS Install ](#os-install)
+10. [ Triggering a Workflow ](#triggering-a-workflow)
+11. [ Monitoring a Workflow ](#monitoring-a-workflow)
+12. [ Debugging ](#debugging)
 
 
 
@@ -454,13 +457,23 @@ except intersight.ApiException as e:
     print("Exception when calling BootApi->delete_boot_precision_policy: %s\n" % e)
 ```
 
+<a name="server-configuration"></a>
+## 7. Example: Server Configuration
+Please refer [Server Configuration](https://github.com/cisco-intersight/intersight_python_examples/blob/main/examples/server_configuration/server_configuration.py)
+
+<a name="firmware-upgrade"></a>
+## 8. Example: Firmware Upgrade
+
+<a name="os-install"></a>
+## 9. Example: OS Install
+
 <a name="triggering-a-workflow"></a>
-## 7. Triggering a Workflow
+## 10. Triggering a Workflow
 
 <a name="monitoring-a-workflow"></a>
-## 8. Monitoring a Workflow
+## 11. Monitoring a Workflow
 
 <a name="debugging"></a>
-## 9. Debugging
+## 12. Debugging
 
 
