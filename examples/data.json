@@ -1,0 +1,24 @@
+{
+	"Name":"sample_boot_policy1",
+	"ObjectType":"boot.PrecisionPolicy",
+	"ClassId":"boot.PrecisionPolicy",
+	"Description":"Create boot precision policy.",
+	"BootDevices":[
+		{
+		"ClassId":"boot.LocalCdd",
+		"ObjectType":"boot.LocalCdd",
+		"Enabled":true,
+		"Name":"local_cdd"
+		},
+		{
+		"ClassId":"boot.LocalDisk",
+		"ObjectType":"boot.LocalDisk",
+		"Enabled":true,
+		"Name":"local_disk"
+		}
+	],
+	"Organization":{
+		"ObjectType":"organization.Organization",
+		"ClassId":"mo.MoRef"
+	}
+}

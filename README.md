@@ -85,6 +85,11 @@ api_response = api_instance.create_boot_precision_policy(boot_precision_policy)
 <a name="creating-an-object"></a>
 ## 2. Creating an Object
 
+This step help user to create an object with the help of python intersight SDK.
+In the below example we are going to create a boot precision policy.
+First the instance of Model: BootPrecisionPolicy is created and then all the attributes
+required to create the policy is set using the model object.
+
 ```python
 from intersight.api import boot_api
 from intersight.model.boot_precision_policy import BootPrecisionPolicy
@@ -158,8 +163,85 @@ with api_client:
 <a name="creating-an-object-from-json"></a>
 ## 3. Creating an Object from JSON
 
+This step help user to create an object with the help of python intersight SDK.
+In the below example we are going to create a boot precision policy.
+The program will parse the input json file to fetch the json payload and use this data.
+The instance of Model: BootPrecisionPolicy is created using parsed json data is as a keyword arguement.
+
+Start with creating a json file contain the data which will be used to create boot precision policy.
+Create a file data.json with the following content:
+
+```json
+{
+  "Name":"sample_boot_policy1",
+  "ObjectType":"boot.PrecisionPolicy",
+  "ClassId":"boot.PrecisionPolicy",
+  "Description":"Create boot precision policy.",
+  "BootDevices":[
+     {
+        "ClassId":"boot.LocalCdd",
+        "ObjectType":"boot.LocalCdd",
+        "Enabled":true,
+        "Name":"local_cdd"
+     },
+	 {
+        "ClassId":"boot.LocalDisk",
+        "ObjectType":"boot.LocalDisk",
+        "Enabled":true,
+        "Name":"local_disk"
+     }
+  ],
+  "Organization":{
+     "ObjectType":"organization.Organization",
+     "ClassId":"mo.MoRef"
+  }
+}
+```
+
+```python
+import json
+from intersight.api import boot_api
+from intersight.model.boot_precision_policy import BootPrecisionPolicy
+from intersight.model.boot_device_base import BootDeviceBase
+from intersight.model.organization_organization_relationship import OrganizationOrganizationRelationship
+from pprint import pprint
+import intersight
+
+api_key = "api_key"
+api_key_file = "~/api_key_file_path"
+
+api_client = get_api_client(api_key, api_key_file)
+
+# Enter a context with an instance of the API client.
+with api_client:
+    # Create an instance of the API class.
+    api_instance = boot_api.BootApi(api_client)
+
+    data_json_file_path = "data.json"
+    with open(data_json_file_path, "r") as json_data_file:
+        json_data = json_data_file.read()
+
+    # Loading the json objects into python dictionary.
+    data = json.loads(json_data)
+
+    # BootPrecisionPolicy | The 'boot.PrecisionPolicy' resource to create.
+    boot_precision_policy = BootPrecisionPolicy(**data, _spec_property_naming=True,
+                                                _configuration=api_client.configuration)
+
+    # example passing only required values which don't have defaults set
+    try:
+        # Create a 'boot.PrecisionPolicy' resource.
+        api_response = api_instance.create_boot_precision_policy(boot_precision_policy)
+        pprint(api_response)
+    except intersight.ApiException as e:
+        print("Exception when calling BootApi->create_boot_precision_policy: %s\n" % e)
+```
+
 <a name="reading-an-object"></a>
 ## 4. Reading an Object
+
+This step help user to read an object with the help of python intersight SDK.
+In the below example we are going to read all the results for boot precision policy.
 
 ```python
 from intersight.api import boot_api
@@ -188,6 +270,17 @@ with api_client:
 
 <a name="updating-an-object"></a>
 ## 5. Updating an Object
+
+This step help user to update an object with the help of python intersight SDK.
+In the below example we are going to update a boot precision policy.
+First the instance of Model: BootPrecisionPolicy is created and then all the attributes
+required to update the policy is set using the model object.
+
+The read object operation is performed to fetch:
+- Moid associated to boot precision policy.
+- Moid associated to organization to update the appropriate fields.
+
+In our example the first result of the response is updated i.e. first entry among all the entries for boot precision policy is updated.
 
 ```python
 from intersight.api import boot_api
@@ -306,6 +399,13 @@ with api_client:
 
 <a name="deleting-an-object"></a>
 ## 6. Deleting an Object
+
+This step help user to delete an object with the help of python intersight SDK.
+In the below example we are going to delete a boot precision policy.
+The read object operation is performed to fetch:
+- Moid associated to boot precision policy.
+
+In our example the first result of the response is deleted i.e. first entry among all the entries for boot precision policy is deleted.
 
 ```python
 from intersight.api import boot_api
