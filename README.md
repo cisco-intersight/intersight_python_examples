@@ -463,9 +463,11 @@ Please refer [Server Configuration](https://github.com/cisco-intersight/intersig
 
 <a name="firmware-upgrade"></a>
 ## 8. Example: Firmware Upgrade
+Please refer [Firmware Upgrade](https://github.com/cisco-intersight/intersight_python_examples/blob/main/examples/firmware_upgrade/firmware_upgrade.py)
 
 <a name="os-install"></a>
 ## 9. Example: OS Install
+Please refer [OS Install](https://github.com/cisco-intersight/intersight_python_examples/blob/main/examples/os_install/os_install.py)
 
 <a name="triggering-a-workflow"></a>
 ## 10. Triggering a Workflow
