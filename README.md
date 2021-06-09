@@ -174,6 +174,7 @@ The instance of Model: BootPrecisionPolicy is created using parsed json data is 
 Start with creating a json file contain the data which will be used to create boot precision policy.
 Create a file data.json with the following content:
 
+`data.json:`
 ```json
 {
   "Name":"sample_boot_policy1",
