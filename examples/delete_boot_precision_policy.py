@@ -9,6 +9,7 @@ api_key_file = "~/api_key_file_path"
 
 api_client = client.get_api_client(api_key, api_key_file)
 
+
 def get_boot_precision_policy(api_client):
     # Enter a context with an instance of the API client
     with api_client:
@@ -23,6 +24,7 @@ def get_boot_precision_policy(api_client):
         except intersight.ApiException as e:
             print("Exception when calling BootApi->get_boot_precision_policy_list: %s\n" % e)
     return api_response
+
 
 # Enter a context with an instance of the API client
 with api_client:
@@ -44,6 +46,6 @@ with api_client:
     try:
         # Delete a 'boot.PrecisionPolicy' resource.
         api_instance.delete_boot_precision_policy(moid)
-        print(f"Deletion for moid: %s was successful"%moid)
+        print(f"Deletion for moid: %s was successful" % moid)
     except intersight.ApiException as e:
         print("Exception when calling BootApi->delete_boot_precision_policy: %s\n" % e)

@@ -18,7 +18,7 @@ def create_boot_sdcard():
     boot_sdcard = BootDeviceBase(class_id="boot.SdCard",
                                  object_type="boot.SdCard",
                                  name="sdcard1",
-                                 enable=True)
+                                 enabled=True)
     return boot_sdcard
 
 
@@ -27,7 +27,7 @@ def create_boot_iscsi():
     boot_iscsi = BootDeviceBase(class_id="boot.Iscsi",
                                 object_type="boot.Iscsi",
                                 name="iscsi1",
-                                enable=True)
+                                enabled=True)
     return boot_iscsi
 
 
@@ -36,7 +36,7 @@ def create_boot_pxe():
     boot_pxe = BootDeviceBase(class_id="boot.Pxe",
                               object_type="boot.Pxe",
                               name="pxe1",
-                              enable=True,
+                              enabled=True,
                               interface_name="pxe1")
     return boot_pxe
 
@@ -81,7 +81,6 @@ with api_client:
     # Fetch the organization Moid and boot precision policy moid from the Result's first entry.
     organization_moid = response.results[0].organization['moid']
     moid = response.results[0].moid
-
 
     # Create an instance of hdd_device, iscsi, pxe, organization and list of boot_devices.
     boot_hdd_device = create_boot_sdcard()

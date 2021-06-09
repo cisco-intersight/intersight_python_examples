@@ -18,7 +18,7 @@ def create_boot_local_cdd():
     boot_local_cdd = BootDeviceBase(class_id="boot.LocalCdd",
                                     object_type="boot.LocalCdd",
                                     name="local_cdd1",
-                                    enable=True)
+                                    enabled=True)
     return boot_local_cdd
 
 
@@ -27,15 +27,17 @@ def create_boot_local_disk():
     boot_local_disk = BootDeviceBase(class_id="boot.LocalDisk",
                                      object_type="boot.LocalDisk",
                                      name="local_disk1",
-                                     enable=True)
+                                     enabled=True)
     return boot_local_disk
+
 
 def create_organization():
     # Creating an instance of organization
     organization = OrganizationOrganizationRelationship(class_id="mo.MoRef",
-                                            object_type="organization.Organization")
+                                                        object_type="organization.Organization")
 
     return organization
+
 
 # Enter a context with an instance of the API client.
 with api_client:

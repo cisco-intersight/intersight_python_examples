@@ -109,7 +109,7 @@ def create_boot_local_cdd():
     boot_local_cdd = BootDeviceBase(class_id="boot.LocalCdd",
                                     object_type="boot.LocalCdd",
                                     name="local_cdd1",
-                                    enable=True)
+                                    enabled=True)
     return boot_local_cdd
 
 
@@ -118,15 +118,17 @@ def create_boot_local_disk():
     boot_local_disk = BootDeviceBase(class_id="boot.LocalDisk",
                                      object_type="boot.LocalDisk",
                                      name="local_disk1",
-                                     enable=True)
+                                     enabled=True)
     return boot_local_disk
+
 
 def create_organization():
     # Creating an instance of organization
     organization = OrganizationOrganizationRelationship(class_id="mo.MoRef",
-                                            object_type="organization.Organization")
+                                                        object_type="organization.Organization")
 
     return organization
+
 
 # Enter a context with an instance of the API client.
 with api_client:
@@ -301,7 +303,7 @@ def create_boot_sdcard():
     boot_sdcard = BootDeviceBase(class_id="boot.SdCard",
                                  object_type="boot.SdCard",
                                  name="sdcard1",
-                                 enable=True)
+                                 enabled=True)
     return boot_sdcard
 
 
@@ -310,7 +312,7 @@ def create_boot_iscsi():
     boot_iscsi = BootDeviceBase(class_id="boot.Iscsi",
                                 object_type="boot.Iscsi",
                                 name="iscsi1",
-                                enable=True)
+                                enabled=True)
     return boot_iscsi
 
 
@@ -319,7 +321,7 @@ def create_boot_pxe():
     boot_pxe = BootDeviceBase(class_id="boot.Pxe",
                               object_type="boot.Pxe",
                               name="pxe1",
-                              enable=True,
+                              enabled=True,
                               interface_name="pxe1")
     return boot_pxe
 
@@ -361,10 +363,9 @@ with api_client:
         raise NotFoundException(reason="The response does not contain any entry for boot precision policy. "
                                        "Please create a boot precision policy and then update it.")
 
-    # Fetch the organization Moid and boot precision policy moid.
+    # Fetch the organization Moid and boot precision policy moid from the Result's first entry.
     organization_moid = response.results[0].organization['moid']
     moid = response.results[0].moid
-
 
     # Create an instance of hdd_device, iscsi, pxe, organization and list of boot_devices.
     boot_hdd_device = create_boot_sdcard()
@@ -433,6 +434,7 @@ def get_boot_precision_policy(api_client):
             print("Exception when calling BootApi->get_boot_precision_policy_list: %s\n" % e)
     return api_response
 
+
 # Enter a context with an instance of the API client
 with api_client:
     # Create an instance of the API class
@@ -453,7 +455,7 @@ with api_client:
     try:
         # Delete a 'boot.PrecisionPolicy' resource.
         api_instance.delete_boot_precision_policy(moid)
-        print(f"Deletion for moid: %s was successful"%moid)
+        print(f"Deletion for moid: %s was successful" % moid)
     except intersight.ApiException as e:
         print("Exception when calling BootApi->delete_boot_precision_policy: %s\n" % e)
 ```
