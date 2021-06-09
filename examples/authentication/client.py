@@ -2,7 +2,7 @@ import intersight
 import re
 
 
-def get_api_client(api_key_id, api_secret_file):
+def get_api_client(api_key_id, api_secret_file, endpoint="https://intersight.com"):
     with open(api_secret_file, 'r') as f:
         api_key = f.read()
 
@@ -11,6 +11,7 @@ def get_api_client(api_key_id, api_secret_file):
         signing_algorithm = intersight.signing.ALGORITHM_RSASSA_PKCS1v15
         signing_scheme = intersight.signing.SCHEME_RSA_SHA256
         hash_algorithm = intersight.signing.HASH_SHA256
+
     elif re.search('BEGIN EC PRIVATE KEY', api_key):
         # API Key v3 format
         signing_algorithm = intersight.signing.ALGORITHM_ECDSA_MODE_DETERMINISTIC_RFC6979
@@ -18,7 +19,7 @@ def get_api_client(api_key_id, api_secret_file):
         hash_algorithm = intersight.signing.HASH_SHA256
 
     configuration = intersight.Configuration(
-        host="https://intersight.com",
+        host=endpoint,
         signing_info=intersight.signing.HttpSigningConfiguration(
             key_id=api_key_id,
             private_key_path=api_secret_file,
