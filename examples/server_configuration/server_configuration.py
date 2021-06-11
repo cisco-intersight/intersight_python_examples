@@ -24,18 +24,15 @@ api_client = client.get_api_client(api_key, api_key_file)
 
 
 def create_organization():
-    # Creating an instance of organization
-    organization = OrganizationOrganizationRelationship(class_id="mo.MoRef",
-                                                        object_type="organization.Organization")
-
-    return organization
+    # Creating and returning an instance of organization
+    return OrganizationOrganizationRelationship(class_id="mo.MoRef",
+                                                object_type="organization.Organization")
 
 
-def create_policy(policy_moid, obj_type):
-    policy = PolicyAbstractPolicyRelationship(moid=policy_moid,
-                                              object_type=obj_type,
-                                              class_id="mo.MoRef")
-    return policy
+def create_policy_reference(policy_moid, obj_type):
+    return PolicyAbstractPolicyRelationship(moid=policy_moid,
+                                            object_type=obj_type,
+                                            class_id="mo.MoRef")
 
 
 def create_server_profile():
@@ -55,9 +52,9 @@ def create_server_profile():
     # example passing only required values which don't have defaults set
     try:
         # Create a 'server.Profile' resource.
-        api_response = api_instance.create_server_profile(server_profile)
-        pprint(api_response)
-        return api_response
+        resp_server_profile = api_instance.create_server_profile(server_profile)
+        pprint(resp_server_profile)
+        return resp_server_profile
     except intersight.ApiException as e:
         print("Exception when calling ServerApi->create_server_profile: %s\n" % e)
         sys.exit(1)
@@ -84,9 +81,9 @@ def create_ntp_policy():
     # example passing only required values which don't have defaults set
     try:
         # Create a 'ntp.Policy' resource.
-        api_response = api_instance.create_ntp_policy(ntp_policy)
-        pprint(api_response)
-        return api_response
+        resp_ntp_policy = api_instance.create_ntp_policy(ntp_policy)
+        pprint(resp_ntp_policy)
+        return resp_ntp_policy
     except intersight.ApiException as e:
         print("Exception when calling NtpApi->create_ntp_policy: %s\n" % e)
         sys.exit(1)
@@ -114,9 +111,9 @@ def create_smtp_policy():
     # example passing only required values which don't have defaults set
     try:
         # Create a 'smtp.Policy' resource.
-        api_response = api_instance.create_smtp_policy(smtp_policy)
-        pprint(api_response)
-        return api_response
+        resp_smtp_policy = api_instance.create_smtp_policy(smtp_policy)
+        pprint(resp_smtp_policy)
+        return resp_smtp_policy
     except intersight.ApiException as e:
         print("Exception when calling SmtpApi->create_smtp_policy: %s\n" % e)
         sys.exit(1)
@@ -156,15 +153,15 @@ def create_snmp_policy():
     # example passing only required values which don't have defaults set
     try:
         # Create a 'Snmp.Policy' resource.
-        api_response = api_instance.create_snmp_policy(snmp_policy)
-        pprint(api_response)
-        return api_response
+        resp_snmp_policy = api_instance.create_snmp_policy(snmp_policy)
+        pprint(resp_snmp_policy)
+        return resp_snmp_policy
     except intersight.ApiException as e:
         print("Exception when calling SnmpApi->create_snmp_policy: %s\n" % e)
         sys.exit(1)
 
 
-def attach_server_profile(server_profile_moid):
+def attach_server_to_profile(server_profile_moid):
     api_instance = server_api.ServerApi(api_client)
 
     # Creating the compute instance api.
@@ -197,10 +194,10 @@ def attach_server_profile(server_profile_moid):
     # example passing only required values which don't have defaults set
     try:
         # Patching a 'Server.Profile' resource.
-        api_response = api_instance.patch_server_profile(moid=server_profile_moid,
-                                                         server_profile=server_profile)
-        pprint(api_response)
-        return api_response
+        resp_server_profile = api_instance.patch_server_profile(moid=server_profile_moid,
+                                                                server_profile=server_profile)
+        pprint(resp_server_profile)
+        return resp_server_profile
     except intersight.ApiException as e:
         print("Exception when calling ServerApi->patch_server_profile: %s\n" % e)
         sys.exit(1)
@@ -218,10 +215,10 @@ def deploy_server_profile(server_profile_moid):
     # example passing only required values which don't have defaults set
     try:
         # Patching a 'Server.Profile' resource.
-        api_response = api_instance.patch_server_profile(moid=server_profile_moid,
-                                                         server_profile=server_profile)
-        pprint(api_response)
-        return api_response
+        resp_server_profile = api_instance.patch_server_profile(moid=server_profile_moid,
+                                                                server_profile=server_profile)
+        pprint(resp_server_profile)
+        return resp_server_profile
     except intersight.ApiException as e:
         print("Exception when calling ServerApi->patch_server_profile: %s\n" % e)
         sys.exit(1)
@@ -231,7 +228,7 @@ def attach_policies_to_profile(policy_mapping, server_profile_moid):
     policy_bucket = []
 
     for obj_type, moid in policy_mapping.items():
-        policy = create_policy(moid, obj_type)
+        policy = create_policy_reference(moid, obj_type)
         policy_bucket.append(policy)
 
     api_instance = server_api.ServerApi(api_client)
@@ -245,10 +242,10 @@ def attach_policies_to_profile(policy_mapping, server_profile_moid):
     # example passing only required values which don't have defaults set
     try:
         # Patch a 'server.Profile' resource.
-        api_response = api_instance.patch_server_profile(moid=server_profile_moid,
-                                                         server_profile=server_profile)
-        pprint(api_response)
-        return api_response
+        resp_server_profile = api_instance.patch_server_profile(moid=server_profile_moid,
+                                                                server_profile=server_profile)
+        pprint(resp_server_profile)
+        return resp_server_profile
     except intersight.ApiException as e:
         print("Exception when calling ServerApi->patch_server_profile: %s\n" % e)
         sys.exit(1)
@@ -282,7 +279,7 @@ policies = {
 attach_policies_to_profile(policies, server_profile_moid)
 
 # assign a server to the server profile
-attach_server_profile(server_profile_moid)
+attach_server_to_profile(server_profile_moid)
 
 # trigger deployment of the server profile
 deploy_server_profile(server_profile_moid)
