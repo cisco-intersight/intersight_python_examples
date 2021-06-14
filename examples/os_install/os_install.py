@@ -317,6 +317,22 @@ def get_catalog_moid():
         sys.exit(1)
 
 
+def fetch_os_config_file(config_file="ESXi6.5ConfigFile"):
+    # Create an instance of the API class
+    api_instance = os_api.OsApi(api_client)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Read a 'os.Api' resource.
+        # Fetching the result with configuration file.
+        api_response = api_instance.get_os_configuration_file_list(filter=f"Name eq '%s'" % config_file)
+        return api_response
+    except intersight.ApiException as e:
+        print("Exception when calling OsApi->get_os_configuration_file_list: %s\n" % e)
+        sys.exit(1)
+
+
 def create_osdu_image(catalog):
     api_instance = firmware_api.FirmwareApi(api_client)
 
@@ -413,9 +429,31 @@ def os_install(os_moid, osdu_moid):
         object_type="firmware.ServerConfigurationUtilityDistributable",
         moid=osdu_moid
     ))
-    answers = OsAnswers(sourece="File",
-                        answer_file="")
+    ip_configuration = OsIpConfiguration(object_type="os.Ipv4Configuration",
+                                         class_id="os.Ipv4Configuration",
+                                         ip_v4_config=CommIpV4Interface(
+                                             ip_address="10.10.10.100",
+                                             netmask="255.255.255.0",
+                                             gateway="10.10.10.1"
+                                         ))
+    answers = OsAnswers(source="Template",
+                        hostname="host1",
+                        ip_config_type="static",
+                        root_password="ChangePassword",
+                        is_root_password_crypted=False,
+                        nameserver="10.10.10.1",
+                        ip_configuration=ip_configuration,
+                        )
     os_install.set_attribute("answers", answers)
+
+    fetch_os_config_file_list = fetch_os_config_file()
+    os_config_file_moid = fetch_os_config_file_list.results[0].moid
+
+    os_install.set_attribute("configuration_file", OsConfigurationFileRelationship(
+        object_type="os.ConfigurationFile",
+        class_id="mo.MoRef",
+        moid=os_config_file_moid
+    ))
 
     # example passing only required values which don't have defaults set
     try:
