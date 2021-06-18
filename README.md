@@ -464,7 +464,9 @@ Please refer [Server Configuration](https://github.com/cisco-intersight/intersig
 
 <a name="firmware-upgrade"></a>
 ## 8. Example: Firmware Upgrade
-Please refer [Firmware Upgrade](https://github.com/cisco-intersight/intersight_python_examples/blob/main/examples/firmware_upgrade/firmware_upgrade.py)
+Please refer [Direct Firmware Upgrade](https://github.com/cisco-intersight/intersight_python_examples/blob/main/examples/firmware_upgrade/firmware_upgrade_direct.py)
+
+Please refer [Network Firmware Upgrade](https://github.com/cisco-intersight/intersight_python_examples/blob/main/examples/firmware_upgrade/firmware_upgrade_network.py)
 
 <a name="os-install"></a>
 ## 9. Example: OS Install
