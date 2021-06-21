@@ -20,7 +20,7 @@
 
 	8.1. [ Claiming a Target ](#claiming-a-target)
 	
-	8.2. [ Unclaiming a Target ](#claiming-a-target)
+	8.2. [ Unclaiming a Target ](#unclaiming-a-target)
 	
 	8.3. [ Claiming an Appliance ](#claiming-an-appliance)
 	
