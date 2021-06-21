@@ -3,7 +3,9 @@
 2. [ Creating an Object ](#creating-an-object)
 3. [ Creating an Object from JSON ](#creating-an-object-from-json)
 4. [ Reading Objects ](#reading-an-object)
-4.1. [ Reading Objects Using a Filter ](#reading-an-object-using-a-filter)
+	
+	4.1. [ Reading Objects Using a Filter ](#reading-an-object-using-a-filter)
+
 5. [ Updating Objects ](#updating-an-object)
 6. [ Deleting Objects ](#deleting-an-object)
 7. [ Example - Server Configuration ](#server-configuration)
