@@ -8,20 +8,25 @@
 
 5. [ Updating Objects ](#updating-an-object)
 6. [ Deleting Objects ](#deleting-an-object)
-7. [ Example - Server Configuration ](#server-configuration)
-8. [ Example - Firmware Upgrade ](#firmware-upgrade)
-9. [ Example - OS Install ](#os-install)
-10. [ Targets ](#targets)
+7. [ Examples](#examples)
 
-	10.1. [ Claiming a Target ](#claiming-a-target)
+	7.1. [ Example - Server Configuration ](#server-configuration)
+
+	7.2. [ Example - Firmware Upgrade ](#firmware-upgrade)
+
+	7.3. [ Example - OS Install ](#os-install)
+
+8. [ Targets ](#targets)
+
+	8.1. [ Claiming a Target ](#claiming-a-target)
 	
-	10.2. [ Unclaiming a Target ](#claiming-a-target)
+	8.2. [ Unclaiming a Target ](#claiming-a-target)
 	
-	10.3. [ Claiming an Appliance ](#claiming-an-appliance)
+	8.3. [ Claiming an Appliance ](#claiming-an-appliance)
 	
-11. [ Triggering a Workflow ](#triggering-a-workflow)
-12. [ Monitoring a Workflow ](#monitoring-a-workflow)
-13. [ Debugging ](#debugging)
+9. [ Triggering a Workflow ](#triggering-a-workflow)
+10. [ Monitoring a Workflow ](#monitoring-a-workflow)
+11. [ Debugging ](#debugging)
 
 
 
@@ -492,38 +497,42 @@ except intersight.ApiException as e:
     print("Exception when calling BootApi->delete_boot_precision_policy: %s\n" % e)
 ```
 
+<a name="examples"></a>
+## 7. Examples
+
 <a name="server-configuration"></a>
-## 7. Example: Server Configuration
+### 7.1. Example: Server Configuration
 Please refer [Server Configuration](https://github.com/cisco-intersight/intersight_python_examples/blob/main/examples/server_configuration/server_configuration.py)
 
 <a name="firmware-upgrade"></a>
-## 8. Example: Firmware Upgrade
+### 7.2. Example: Firmware Upgrade
 Please refer [Firmware Upgrade](https://github.com/cisco-intersight/intersight_python_examples/blob/main/examples/firmware_upgrade/firmware_upgrade.py)
 
 <a name="os-install"></a>
-## 9. Example: OS Install
+### 7.3. Example: OS Install
 Please refer [OS Install](https://github.com/cisco-intersight/intersight_python_examples/blob/main/examples/os_install/os_install.py)
 
+
 <a name="targets"></a>
-## 10. Targets
+## 8. Targets
 
 <a name="claiming-a-target"></a>
-### 10.1. Claiming a Target
+### 8.1. Claiming a Target
 
 <a name="unclaiming-a-target"></a>
-### 10.2. Unclaiming a Target
+### 8.2. Unclaiming a Target
 
 <a name="claiming-an-appliance"></a>
-### 10.3. Claiming an Appliance
+### 8.3. Claiming an Appliance
 
 
 <a name="triggering-a-workflow"></a>
-## 11. Triggering a Workflow
+## 9. Triggering a Workflow
 
 <a name="monitoring-a-workflow"></a>
-## 12. Monitoring a Workflow
+## 10. Monitoring a Workflow
 
 <a name="debugging"></a>
-## 13. Debugging
+## 11. Debugging
 
 
