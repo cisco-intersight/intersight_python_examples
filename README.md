@@ -276,6 +276,26 @@ except intersight.ApiException as e:
 <a name="reading-an-object-using-a-filter"></a>
 ### 4.1. Reading Objects Using a Filter
 
+Intersight supports oData query format to return a filtered list of objects.
+An example is shown below. Here we filter devices that are in connected state.
+
+```python
+from intersight.api import asset_api
+
+api_key = "api_key"
+api_key_file = "~/api_key_file_path"
+
+api_client = get_api_client(api_key, api_key_file)
+asset_api = asset_api.AssetApi(api_client)
+ 
+kwargs = dict(filter="ConnectionStatus eq 'Connected'")
+
+# Get all device registration objects that are in connected state
+api_result= api.get_asset_device_registration_list(**kwargs)
+for device in api_result.results:
+    print(device.device_ip_address[0])
+```
+
 <a name="updating-an-object"></a>
 ## 5. Updating Objects
 
