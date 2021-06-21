@@ -2,9 +2,10 @@
 1. [ Authentication ](#authentication)
 2. [ Creating an Object ](#creating-an-object)
 3. [ Creating an Object from JSON ](#creating-an-object-from-json)
-4. [ Reading an Object ](#reading-an-object)
-5. [ Updating an Object ](#updating-an-object)
-6. [ Deleting an Object ](#deleting-an-object)
+4. [ Reading Objects ](#reading-an-object)
+4.1. [ Reading Objects Using a Filter ](#reading-an-object-using-a-filter)
+5. [ Updating Objects ](#updating-an-object)
+6. [ Deleting Objects ](#deleting-an-object)
 7. [ Example - Server Configuration ](#server-configuration)
 8. [ Example - Firmware Upgrade ](#firmware-upgrade)
 9. [ Example - OS Install ](#os-install)
@@ -241,7 +242,7 @@ except intersight.ApiException as e:
 ```
 
 <a name="reading-an-object"></a>
-## 4. Reading an Object
+## 4. Reading Objects
 
 This step helps user to read an object with the help of python intersight SDK.
 In the below example we are going to read all the results for boot precision policy.
@@ -270,8 +271,11 @@ except intersight.ApiException as e:
     print("Exception when calling BootApi->get_boot_precision_policy_list: %s\n" % e)
 ```
 
+<a name="reading-an-object-using-a-filter"></a>
+### 4.1. Reading Objects Using a Filter
+
 <a name="updating-an-object"></a>
-## 5. Updating an Object
+## 5. Updating Objects
 
 This step helps user to update an object with the help of python intersight SDK.
 In the below example we are going to update a boot precision policy.
@@ -398,7 +402,7 @@ except intersight.ApiException as e:
 ```
 
 <a name="deleting-an-object"></a>
-## 6. Deleting an Object
+## 6. Deleting Objects
 
 This step helps user to delete an object with the help of python intersight SDK.
 In the below example we are going to delete a boot precision policy.
