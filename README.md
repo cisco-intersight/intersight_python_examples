@@ -11,9 +11,17 @@
 7. [ Example - Server Configuration ](#server-configuration)
 8. [ Example - Firmware Upgrade ](#firmware-upgrade)
 9. [ Example - OS Install ](#os-install)
-10. [ Triggering a Workflow ](#triggering-a-workflow)
-11. [ Monitoring a Workflow ](#monitoring-a-workflow)
-12. [ Debugging ](#debugging)
+10. [ Targets ](#targets)
+
+	10.1. [ Claiming a Target ](#claiming-a-target)
+	
+	10.2. [ Unclaiming a Target ](#claiming-a-target)
+	
+	10.3. [ Claiming an Appliance ](#claiming-an-appliance)
+	
+11. [ Triggering a Workflow ](#triggering-a-workflow)
+12. [ Monitoring a Workflow ](#monitoring-a-workflow)
+13. [ Debugging ](#debugging)
 
 
 
@@ -496,13 +504,26 @@ Please refer [Firmware Upgrade](https://github.com/cisco-intersight/intersight_p
 ## 9. Example: OS Install
 Please refer [OS Install](https://github.com/cisco-intersight/intersight_python_examples/blob/main/examples/os_install/os_install.py)
 
+<a name="targets"></a>
+## 10. Targets
+
+<a name="claiming-a-target"></a>
+### 10.1. Claiming a Target
+
+<a name="unclaiming-a-target"></a>
+### 10.2. Unclaiming a Target
+
+<a name="claiming-an-appliance"></a>
+### 10.3. Claiming an Appliance
+
+
 <a name="triggering-a-workflow"></a>
-## 10. Triggering a Workflow
+## 11. Triggering a Workflow
 
 <a name="monitoring-a-workflow"></a>
-## 11. Monitoring a Workflow
+## 12. Monitoring a Workflow
 
 <a name="debugging"></a>
-## 12. Debugging
+## 13. Debugging
 
 
