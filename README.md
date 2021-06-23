@@ -2,15 +2,31 @@
 1. [ Authentication ](#authentication)
 2. [ Creating an Object ](#creating-an-object)
 3. [ Creating an Object from JSON ](#creating-an-object-from-json)
-4. [ Reading an Object ](#reading-an-object)
-5. [ Updating an Object ](#updating-an-object)
-6. [ Deleting an Object ](#deleting-an-object)
-7. [ Example - Server Configuration ](#server-configuration)
-8. [ Example - Firmware Upgrade ](#firmware-upgrade)
-9. [ Example - OS Install ](#os-install)
-10. [ Triggering a Workflow ](#triggering-a-workflow)
-11. [ Monitoring a Workflow ](#monitoring-a-workflow)
-12. [ Debugging ](#debugging)
+4. [ Reading Objects ](#reading-an-object)
+	
+	4.1. [ Reading Objects Using a Filter ](#reading-an-object-using-a-filter)
+
+5. [ Updating Objects ](#updating-an-object)
+6. [ Deleting Objects ](#deleting-an-object)
+7. [ Examples](#examples)
+
+	7.1. [ Example - Server Configuration ](#server-configuration)
+
+	7.2. [ Example - Firmware Upgrade ](#firmware-upgrade)
+
+	7.3. [ Example - OS Install ](#os-install)
+
+8. [ Targets ](#targets)
+
+	8.1. [ Claiming a Target ](#claiming-a-target)
+	
+	8.2. [ Unclaiming a Target ](#unclaiming-a-target)
+	
+	8.3. [ Claiming an Appliance ](#claiming-an-appliance)
+	
+9. [ Triggering a Workflow ](#triggering-a-workflow)
+10. [ Monitoring a Workflow ](#monitoring-a-workflow)
+11. [ Debugging ](#debugging)
 
 
 
@@ -241,7 +257,7 @@ except intersight.ApiException as e:
 ```
 
 <a name="reading-an-object"></a>
-## 4. Reading an Object
+## 4. Reading Objects
 
 This step helps user to read an object with the help of python intersight SDK.
 In the below example we are going to read all the results for boot precision policy.
@@ -270,8 +286,31 @@ except intersight.ApiException as e:
     print("Exception when calling BootApi->get_boot_precision_policy_list: %s\n" % e)
 ```
 
+<a name="reading-an-object-using-a-filter"></a>
+### 4.1. Reading Objects Using a Filter
+
+Intersight supports oData query format to return a filtered list of objects.
+An example is shown below. Here we filter devices that are in connected state.
+
+```python
+from intersight.api import asset_api
+
+api_key = "api_key"
+api_key_file = "~/api_key_file_path"
+
+api_client = get_api_client(api_key, api_key_file)
+asset_api = asset_api.AssetApi(api_client)
+ 
+kwargs = dict(filter="ConnectionStatus eq 'Connected'")
+
+# Get all device registration objects that are in connected state
+api_result= api.get_asset_device_registration_list(**kwargs)
+for device in api_result.results:
+    print(device.device_ip_address[0])
+```
+
 <a name="updating-an-object"></a>
-## 5. Updating an Object
+## 5. Updating Objects
 
 This step helps user to update an object with the help of python intersight SDK.
 In the below example we are going to update a boot precision policy.
@@ -398,7 +437,7 @@ except intersight.ApiException as e:
 ```
 
 <a name="deleting-an-object"></a>
-## 6. Deleting an Object
+## 6. Deleting Objects
 
 This step helps user to delete an object with the help of python intersight SDK.
 In the below example we are going to delete a boot precision policy.
@@ -458,8 +497,11 @@ except intersight.ApiException as e:
     print("Exception when calling BootApi->delete_boot_precision_policy: %s\n" % e)
 ```
 
+<a name="examples"></a>
+## 7. Examples
+
 <a name="server-configuration"></a>
-## 7. Example: Server Configuration
+### 7.1. Example: Server Configuration
 Please refer [Server Configuration](https://github.com/cisco-intersight/intersight_python_examples/blob/main/examples/server_configuration/server_configuration.py)
 
 <a name="firmware-upgrade"></a>
@@ -468,17 +510,120 @@ Please refer [Direct Firmware Upgrade](https://github.com/cisco-intersight/inter
 
 Please refer [Network Firmware Upgrade](https://github.com/cisco-intersight/intersight_python_examples/blob/main/examples/firmware_upgrade/firmware_upgrade_network.py)
 
+
 <a name="os-install"></a>
-## 9. Example: OS Install
+### 7.3. Example: OS Install
 Please refer [OS Install](https://github.com/cisco-intersight/intersight_python_examples/blob/main/examples/os_install/os_install.py)
 
+
+<a name="targets"></a>
+## 8. Targets
+
+<a name="claiming-a-target"></a>
+### 8.1. Claiming a Target
+
+```python
+from intersight.api import asset_api
+from intersight.model.asset_target import AssetTarget
+from pprint import pprint
+import intersight
+
+api_key = "api_key"
+api_key_file = "~/api_key_file_path"
+
+api_client = get_api_client(api_key, api_key_file)
+
+api_instance = asset_api.AssetApi(api_client)
+
+# AssetTarget | The 'asset.Target' resource to create.
+asset_target = AssetTarget()
+
+# setting claim_code and device_id
+asset_target.set_attribute("security_token", "2Nxxx-int")
+asset_target.set_attribute("serial_number", "WZPxxxxxFMx")
+
+
+# Post the above payload to claim a target
+try:
+    # Create a 'asset.Target' resource.
+    claim_resp = api_instance.create_asset_device_claim(asset_target)
+    pprint(claim_resp)
+except intersight.ApiException as e:
+    print("Exception when calling AssetApi->create_asset_device_claim: %s\n" % e)
+```
+
+<a name="unclaiming-a-target"></a>
+### 8.2. Unclaiming a Target
+
+```python
+from intersight.api import asset_api
+import intersight
+
+api_key = "api_key"
+api_key_file = "~/api_key_file_path"
+
+api_client = get_api_client(api_key, api_key_file)
+
+api_instance = asset_api.AssetApi(api_client)
+
+# To find out all the connected devices.
+kwargs = dict(filter="ConnectionStatus eq 'Connected'")
+
+# Get all registered target.
+api_result= api.get_asset_device_registration_list(**kwargs)
+
+try:
+    for device in api_result.results:
+        # You need to provide the IP address of the target, you need to unclaim
+        if "10.10.10.10" in device.device_ip_address:
+            # Deleting the target as the same we do through api
+            api_instance.delete_asset_device_claim(moid=device.device_claim.moid)
+except intersight.ApiException as e:
+    print("Exception when calling AssetApi->delete_asset_device_claim: %s\n" % e)
+```
+
+<a name="claiming-an-appliance"></a>
+### 8.3. Claiming an Appliance
+
+```python
+from intersight.api import asset_api
+from intersight.model.asset_target import AssetTarget
+from pprint import pprint
+import intersight
+
+api_key = "api_key"
+api_key_file = "~/api_key_file_path"
+
+api_client = get_api_client(api_key, api_key_file)
+
+api_instance = asset_api.AssetApi(api_client)
+
+# ApplianceDeviceClaim | The 'appliance.DeviceClaim' resource to create.
+appliance_device_claim = ApplianceDeviceClaim()
+
+# setting claim_code and device_id
+appliance_device_claim.set_attribute("username", "user1")
+appliance_device_claim.set_attribute("password", "ChangeMe")
+appliance_device_claim.set_attribute("hostname", "host1")
+appliance_device_claim.set_attribute("platform_type", "UCSD")
+
+
+# Post the above payload to claim a target
+try:
+    # Create a 'appliance.DeviceClaim' resource.
+    claim_resp = api_instance.create_appliance_device_claim(appliance_device_claim)
+    pprint(claim_resp)
+except intersight.ApiException as e:
+    print("Exception when calling AssetApi->create_appliance_device_claim: %s\n" % e)
+```
+
 <a name="triggering-a-workflow"></a>
-## 10. Triggering a Workflow
+## 9. Triggering a Workflow
 
 <a name="monitoring-a-workflow"></a>
-## 11. Monitoring a Workflow
+## 10. Monitoring a Workflow
 
 <a name="debugging"></a>
-## 12. Debugging
+## 11. Debugging
 
 
