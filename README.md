@@ -505,7 +505,7 @@ except intersight.ApiException as e:
 Please refer [Server Configuration](https://github.com/cisco-intersight/intersight_python_examples/blob/main/examples/server_configuration/server_configuration.py)
 
 <a name="firmware-upgrade"></a>
-## 8. Example: Firmware Upgrade
+### 7.2. Example: Firmware Upgrade
 Please refer [Direct Firmware Upgrade](https://github.com/cisco-intersight/intersight_python_examples/blob/main/examples/firmware_upgrade/firmware_upgrade_direct.py)
 
 Please refer [Network Firmware Upgrade](https://github.com/cisco-intersight/intersight_python_examples/blob/main/examples/firmware_upgrade/firmware_upgrade_network.py)
