@@ -519,12 +519,100 @@ Please refer [OS Install](https://github.com/cisco-intersight/intersight_python_
 <a name="claiming-a-target"></a>
 ### 8.1. Claiming a Target
 
+```python
+from intersight.api import asset_api
+from intersight.model.asset_target import AssetTarget
+from pprint import pprint
+import intersight
+
+api_key = "api_key"
+api_key_file = "~/api_key_file_path"
+
+api_client = get_api_client(api_key, api_key_file)
+
+api_instance = asset_api.AssetApi(api_client)
+
+# AssetTarget | The 'asset.Target' resource to create.
+asset_target = AssetTarget()
+
+# setting claim_code and device_id
+asset_target.set_attribute("security_token", "2Nxxx-int")
+asset_target.set_attribute("serial_number", "WZPxxxxxFMx")
+
+
+# Post the above payload to claim a target
+try:
+    # Create a 'asset.Target' resource.
+    claim_resp = api_instance.create_asset_device_claim(asset_target)
+    pprint(claim_resp)
+except intersight.ApiException as e:
+    print("Exception when calling AssetApi->create_asset_device_claim: %s\n" % e)
+```
+
 <a name="unclaiming-a-target"></a>
 ### 8.2. Unclaiming a Target
+
+```python
+from intersight.api import asset_api
+import intersight
+
+api_key = "api_key"
+api_key_file = "~/api_key_file_path"
+
+api_client = get_api_client(api_key, api_key_file)
+
+api_instance = asset_api.AssetApi(api_client)
+
+# To find out all the connected devices.
+kwargs = dict(filter="ConnectionStatus eq 'Connected'")
+
+# Get all registered target.
+api_result= api.get_asset_device_registration_list(**kwargs)
+
+try:
+    for device in api_result.results:
+        # You need to provide the IP address of the target, you need to unclaim
+        if "10.10.10.10" in device.device_ip_address:
+            # Deleting the target as the same we do through api
+            api_instance.delete_asset_device_claim(moid=device.device_claim.moid)
+except intersight.ApiException as e:
+    print("Exception when calling AssetApi->delete_asset_device_claim: %s\n" % e)
+```
 
 <a name="claiming-an-appliance"></a>
 ### 8.3. Claiming an Appliance
 
+```python
+from intersight.api import asset_api
+from intersight.model.asset_target import AssetTarget
+from pprint import pprint
+import intersight
+
+api_key = "api_key"
+api_key_file = "~/api_key_file_path"
+
+api_client = get_api_client(api_key, api_key_file)
+
+api_instance = asset_api.AssetApi(api_client)
+
+# ApplianceDeviceClaim | The 'appliance.DeviceClaim' resource to create.
+appliance_device_claim = ApplianceDeviceClaim()
+
+# setting claim_code and device_id
+appliance_device_claim.set_attribute("username", "user1")
+appliance_device_claim.set_attribute("password", "ChangeMe")
+appliance_device_claim.set_attribute("hostname", "host1")
+appliance_device_claim.set_attribute("platform_type", "UCSD")
+
+
+# Post the above payload to claim a target
+try:
+    # Create a 'appliance.DeviceClaim' resource.
+    claim_resp = api_instance.create_appliance_device_claim(appliance_device_claim)
+    pprint(claim_resp)
+except intersight.ApiException as e:
+    print("Exception when calling AssetApi->create_appliance_device_claim: %s\n" % e)
+```
 
 <a name="triggering-a-workflow"></a>
 ## 9. Triggering a Workflow
