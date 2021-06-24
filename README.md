@@ -165,10 +165,10 @@ boot_devices = [
 boot_precision_policy = BootPrecisionPolicy()
 
 # Setting all the attributes for boot_precison_policy instance.
-boot_precision_policy.set_attribute("name", "sample_boot_policy1")
-boot_precision_policy.set_attribute("description", "sample boot precision policy")
-boot_precision_policy.set_attribute("boot_devices", boot_devices)
-boot_precision_policy.set_attribute("organization", organization)
+boot_precision_policy.name = "sample_boot_policy1"
+boot_precision_policy.description = "sample boot precision policy"
+boot_precision_policy.boot_devices = boot_devices
+boot_precision_policy.organization = organization
 
 # example passing only required values which don't have defaults set
 try:
@@ -420,10 +420,10 @@ boot_devices = [
 boot_precision_policy = BootPrecisionPolicy()
 
 # Setting all the attributes for boot_precison_policy instance.
-boot_precision_policy.set_attribute("name", "updated_boot_policy1")
-boot_precision_policy.set_attribute("description", "Updated boot precision policy")
-boot_precision_policy.set_attribute("boot_devices", boot_devices)
-boot_precision_policy.set_attribute("organization", organization)
+boot_precision_policy.name = "updated_boot_policy1"
+boot_precision_policy.description = "Updated boot precision policy"
+boot_precision_policy.boot_devices = boot_devices
+boot_precision_policy.organization = organization
 
 # example passing only required values which don't have defaults set
 try:
@@ -539,8 +539,8 @@ api_instance = asset_api.AssetApi(api_client)
 asset_target = AssetTarget()
 
 # setting claim_code and device_id
-asset_target.set_attribute("security_token", "2Nxxx-int")
-asset_target.set_attribute("serial_number", "WZPxxxxxFMx")
+asset_target.security_token = "2Nxxx-int"
+asset_target.serial_number = "WZPxxxxxFMx"
 
 
 # Post the above payload to claim a target
@@ -602,10 +602,10 @@ api_instance = asset_api.AssetApi(api_client)
 appliance_device_claim = ApplianceDeviceClaim()
 
 # setting claim_code and device_id
-appliance_device_claim.set_attribute("username", "user1")
-appliance_device_claim.set_attribute("password", "ChangeMe")
-appliance_device_claim.set_attribute("hostname", "host1")
-appliance_device_claim.set_attribute("platform_type", "UCSD")
+appliance_device_claim.username = "user1"
+appliance_device_claim.password = "ChangeMe"
+appliance_device_claim.hostname = "host1"
+appliance_device_claim.platform_type = "UCSD"
 
 
 # Post the above payload to claim a target
