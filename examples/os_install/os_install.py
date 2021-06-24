@@ -70,16 +70,16 @@ def create_server_profile():
     server_profile = ServerProfile()
 
     # Setting all the attributes for server_profile instance.
-    server_profile.set_attribute("name", "sample_storage_server_profile1")
-    server_profile.set_attribute("description", "sample server profile.")
-    server_profile.set_attribute("organization", organization)
+    server_profile.name = "sample_storage_server_profile1"
+    server_profile.description = "sample server profile."
+    server_profile.organization = organization
 
     tags = [
         MoTag(key="profile",
               value="storage_profile")
     ]
 
-    server_profile.set_attribute("tags", tags)
+    server_profile.tags = tags
 
     # example passing only required values which don't have defaults set
     try:
@@ -104,18 +104,18 @@ def create_disk_group_policy():
         dg_policy = StorageDiskGroupPolicy()
 
         # Setting all the attributes for dg_policy instance.
-        dg_policy.set_attribute("name", f"sample_dg_policy_raid%d" % index)
-        dg_policy.set_attribute("description", f"sample disk group policy for raid%d." % index)
-        dg_policy.set_attribute("organization", organization)
+        dg_policy.name = f"sample_dg_policy_raid%d" % index
+        dg_policy.description = f"sample disk group policy for raid%d." % index
+        dg_policy.organization = organization
 
         tags = [
             MoTag(key="dg",
                   value="dg_policy")
         ]
 
-        dg_policy.set_attribute("tags", tags)
-        dg_policy.set_attribute("use_jbods", True)
-        dg_policy.set_attribute("raid_level", f"Raid%d" % index)
+        dg_policy.tags = tags
+        dg_policy.use_jbods = True
+        dg_policy.raid_level = f"Raid%d" % index
 
         if resp_dg_policy_lst:
             span_groups = StorageSpanGroup(disks=[
@@ -123,16 +123,16 @@ def create_disk_group_policy():
                 StorageLocalDisk(slot_number=index + 2),
             ]
             )
-            dg_policy.set_attribute("dedicated_hot_spares", [
+            dg_policy.dedicated_hot_spares = [
                 StorageLocalDisk(slot_number=index + 3)
-            ])
+            ]
         else:
             span_groups = StorageSpanGroup(disks=[
                 StorageLocalDisk(slot_number=index + 1)
             ]
             )
 
-        dg_policy.set_attribute("span_groups", [span_groups])
+        dg_policy.span_groups = [span_groups]
         # example passing only required values which don't have defaults set
         try:
             # Create a 'storage.DiskGroupPolicy' resource.
@@ -177,22 +177,21 @@ def create_storage_policy(dg_policy_moid):
     storage_policy = StorageStoragePolicy()
 
     # Setting all the attributes for server_profile instance.
-    storage_policy.set_attribute("name", "sample_storage_policy1")
-    storage_policy.set_attribute("description", "sample storage policy.")
-    storage_policy.set_attribute("organization", organization)
+    storage_policy.name = "sample_storage_policy1"
+    storage_policy.description = "sample storage policy."
+    storage_policy.organization = organization
 
     tags = [
         MoTag(key="policy",
               value="storage")
     ]
 
-    storage_policy.set_attribute("tags", tags)
-    storage_policy.set_attribute("retain_policy_virtual_drives", False)
-    storage_policy.set_attribute("unused_disks_state", "UnconfiguredGood")
+    storage_policy.tags = tags
+    storage_policy.retain_policy_virtual_drives = False
+    storage_policy.unused_disks_state = "UnconfiguredGood"
 
     virtual_drives = create_virtual_drives(dg_policy_moid)
-    storage_policy.set_attribute("virtual_drives", virtual_drives)
-    pprint(storage_policy)
+    storage_policy.virtual_drives = virtual_drives
 
     # example passing only required values which don't have defaults set
     try:
@@ -240,7 +239,7 @@ def attach_server_to_profile(server_profile_moid):
     assigned_server = get_assigned_server()
 
     # Setting the attribute for server profile with assigned server and server profile moid.
-    server_profile.set_attribute("assigned_server", assigned_server)
+    server_profile.assigned_server = assigned_server
 
     # example passing only required values which don't have defaults set
     try:
@@ -261,7 +260,7 @@ def deploy_server_profile(server_profile_moid):
     server_profile = ServerProfile()
 
     # Setting the attribute for server profile with the action and server profile moid.
-    server_profile.set_attribute("action", "Deploy")
+    server_profile.action = "Deploy"
 
     # example passing only required values which don't have defaults set
     try:
@@ -288,7 +287,7 @@ def attach_policies_to_profile(policy_mapping, server_profile_moid):
     server_profile = ServerProfile()
 
     # Setting all the attributes for server_profile instance.
-    server_profile.set_attribute("policy_bucket", policy_bucket)
+    server_profile.policy_bucket = policy_bucket
 
     # example passing only required values which don't have defaults set
     try:
@@ -325,7 +324,7 @@ def fetch_os_config_file(config_file="ESXi6.5ConfigFile"):
     # and optional values
     try:
         # Read a 'os.Api' resource.
-        # Fetching the result with configuration file.
+        # Fetching the result with the configuration file.
         api_response = api_instance.get_os_configuration_file_list(filter=f"Name eq '%s'" % config_file)
         return api_response
     except intersight.ApiException as e:
@@ -340,18 +339,18 @@ def create_osdu_image(catalog):
     firmware_server_config_utility_dist = FirmwareServerConfigurationUtilityDistributable()
 
     # Setting the attribute for firmware_server_config_utility_dist.
-    firmware_server_config_utility_dist.set_attribute("name", "firmware_server_config_utility_dist1")
-    firmware_server_config_utility_dist.set_attribute("version", "s")
-    firmware_server_config_utility_dist.set_attribute("supported_models", ["s"])
-    firmware_server_config_utility_dist.set_attribute("source", SoftwarerepositoryFileServer(
+    firmware_server_config_utility_dist.name = "firmware_server_config_utility_dist1"
+    firmware_server_config_utility_dist.version = "s"
+    firmware_server_config_utility_dist.supported_models = ["s"]
+    firmware_server_config_utility_dist.source = SoftwarerepositoryFileServer(
         object_type="softwarerepository.CifsServer",
         class_id="softwarerepository.CifsServer",
         file_location="10.10.10.20/iso.iso",
         username="user",
         password="password"
-    ))
+    )
 
-    firmware_server_config_utility_dist.set_attribute("catalog", catalog)
+    firmware_server_config_utility_dist.catalog = catalog
 
     # example passing only required values which don't have defaults set
     try:
@@ -375,11 +374,11 @@ def create_os_image(catalog):
     sw_repo_os_file = SoftwarerepositoryOperatingSystemFile()
 
     # Setting the attribute for firmware_server_config_utility_dist.
-    sw_repo_os_file.set_attribute("name", "sw_repo_os_file1")
-    sw_repo_os_file.set_attribute("description", "software repository operating System file")
-    sw_repo_os_file.set_attribute("vendor", "VMware")
-    sw_repo_os_file.set_attribute("version", "ESXi 6.7 U3")
-    sw_repo_os_file.set_attribute("source", SoftwarerepositoryFileServer(
+    sw_repo_os_file.name = "sw_repo_os_file1"
+    sw_repo_os_file.description = "software repository operating System file"
+    sw_repo_os_file.vendor = "VMware"
+    sw_repo_os_file.version = "ESXi 6.7 U3"
+    sw_repo_os_file.source = SoftwarerepositoryFileServer(
         object_type="softwarerepository.CifsServer",
         class_id="softwarerepository.CifsServer",
         file_location="10.10.10.20/iso.iso",
@@ -388,9 +387,9 @@ def create_os_image(catalog):
         remote_share="share",
         remote_file="iso.iso",
         remote_ip="10.10.10.10"
-    ))
+    )
 
-    sw_repo_os_file.set_attribute("catalog", catalog)
+    sw_repo_os_file.catalog = catalog
 
     # example passing only required values which don't have defaults set
     try:
@@ -413,22 +412,23 @@ def os_install(os_moid, osdu_moid):
     # Create an instance of organization.
     organization = create_organization()
 
-    os_install.set_attribute("name", "sample_os_install_tempalate1")
-    os_install.set_attribute("description", "sample os install tempalate1")
-    os_install.set_attribute("install_method", "vMedia")
-    os_install.set_attribute("organization", organization)
+    os_install.name = "sample_os_install_tempalate1"
+    os_install.description = "sample os install tempalate1"
+    os_install.install_method = "vMedia"
+    os_install.organization = organization
     server = get_assigned_server()
-    os_install.set_attribute("server", server)
-    os_install.set_attribute("image", SoftwarerepositoryOperatingSystemFileRelationship(
+    os_install.server = server
+    os_install.image = SoftwarerepositoryOperatingSystemFileRelationship(
         class_id="mo.MoRef",
         object_type="softwarerepository.OperatingSystemFile",
         moid=os_moid
-    ))
-    os_install.set_attribute("osdu_image", FirmwareServerConfigurationUtilityDistributableRelationship(
+    )
+    os_install.osdu_image = FirmwareServerConfigurationUtilityDistributableRelationship(
         class_id="mo.MoRef",
         object_type="firmware.ServerConfigurationUtilityDistributable",
         moid=osdu_moid
-    ))
+    )
+
     ip_configuration = OsIpConfiguration(object_type="os.Ipv4Configuration",
                                          class_id="os.Ipv4Configuration",
                                          ip_v4_config=CommIpV4Interface(
@@ -444,16 +444,16 @@ def os_install(os_moid, osdu_moid):
                         nameserver="10.10.10.1",
                         ip_configuration=ip_configuration,
                         )
-    os_install.set_attribute("answers", answers)
+    os_install.answers = answers
 
     fetch_os_config_file_list = fetch_os_config_file()
     os_config_file_moid = fetch_os_config_file_list.results[0].moid
 
-    os_install.set_attribute("configuration_file", OsConfigurationFileRelationship(
+    os_install.configuration_file = OsConfigurationFileRelationship(
         object_type="os.ConfigurationFile",
         class_id="mo.MoRef",
         moid=os_config_file_moid
-    ))
+    )
 
     # example passing only required values which don't have defaults set
     try:

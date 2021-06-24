@@ -47,20 +47,20 @@ def update_server_firmware(assigned_server):
     firmware_upgrade = FirmwareUpgrade()
 
     # Setting all the attributes for firmware_upgrade instance.
-    firmware_upgrade.set_attribute("direct_download", FirmwareDirectDownload())
+    firmware_upgrade.direct_download = FirmwareDirectDownload()
     cifs_server = FirmwareCifsServer(
         mount_options="ntlmv2",
         file_location="/file"
     )
-    firmware_upgrade.set_attribute("network_share", FirmwareNetworkShare(
+    firmware_upgrade.network_share = FirmwareNetworkShare(
         upgradeoption="nw_upgrade_mount_only",
         map_type="cifs",
         username="user1",
         password="password",
         cifs_server=cifs_server
-    ))
-    firmware_upgrade.set_attribute("upgrade_type", "network_upgrade")
-    firmware_upgrade.set_attribute("server", assigned_server)
+    )
+    firmware_upgrade.upgrade_type = "network_upgrade"
+    firmware_upgrade.server = assigned_server
 
     try:
         # create a 'firmwareApi' resource.

@@ -45,9 +45,9 @@ def create_server_profile():
     server_profile = ServerProfile()
 
     # Setting all the attributes for server_profile instance.
-    server_profile.set_attribute("name", "sample_server_profile1")
-    server_profile.set_attribute("description", "sample server profile.")
-    server_profile.set_attribute("organization", organization)
+    server_profile.name = "sample_server_profile1"
+    server_profile.description = "sample server profile."
+    server_profile.organization = organization
 
     # example passing only required values which don't have defaults set
     try:
@@ -70,13 +70,13 @@ def create_ntp_policy():
     ntp_policy = NtpPolicy()
 
     # Setting all the attributes for server_profile instance.
-    ntp_policy.set_attribute("name", "sample_ntp_policy1")
-    ntp_policy.set_attribute("description", "sample ntp policy.")
-    ntp_policy.set_attribute("organization", organization)
+    ntp_policy.name = "sample_ntp_policy1"
+    ntp_policy.description = "sample ntp policy."
+    ntp_policy.organization = organization
     ntp_servers = [
         "10.10.10.250", "10.10.10.10", "10.10.10.20", "10.10.10.30"
     ]
-    ntp_policy.set_attribute("ntp_servers", ntp_servers)
+    ntp_policy.ntp_servers = ntp_servers
 
     # example passing only required values which don't have defaults set
     try:
@@ -100,13 +100,13 @@ def create_smtp_policy():
     smtp_policy = SmtpPolicy()
 
     # Setting all the attributes for server_profile instance.
-    smtp_policy.set_attribute("name", "sample_smtp_policy1")
-    smtp_policy.set_attribute("description", "sample smtp policy.")
-    smtp_policy.set_attribute("enabled", True)
-    smtp_policy.set_attribute("min_severity", "critical")
-    smtp_policy.set_attribute("smtp_recipients", ["test@test"])
-    smtp_policy.set_attribute("smtp_server", "10.10.10.80")
-    smtp_policy.set_attribute("organization", organization)
+    smtp_policy.name = "sample_smtp_policy1"
+    smtp_policy.description = "sample smtp policy."
+    smtp_policy.enabled = True
+    smtp_policy.min_severity = "critical"
+    smtp_policy.smtp_recipients = ["test@test"]
+    smtp_policy.smtp_server = "10.10.10.80"
+    smtp_policy.organization = organization
 
     # example passing only required values which don't have defaults set
     try:
@@ -130,14 +130,14 @@ def create_snmp_policy():
     snmp_policy = SnmpPolicy()
 
     # Setting all the attributes for server_profile instance.
-    snmp_policy.set_attribute("name", "sample_snmp_policy1")
-    snmp_policy.set_attribute("description", "sample snmp policy.")
-    snmp_policy.set_attribute("enabled", True)
-    snmp_policy.set_attribute("sys_location", "BLR")
-    snmp_policy.set_attribute("trap_community", "snmpv3")
-    snmp_policy.set_attribute("engine_id", "12121")
-    snmp_policy.set_attribute("snmp_port", 161)
-    snmp_policy.set_attribute("sys_contact", "DA")
+    snmp_policy.name = "sample_snmp_policy1"
+    snmp_policy.description = "sample snmp policy."
+    snmp_policy.enabled = True
+    snmp_policy.sys_location = "BLR"
+    snmp_policy.trap_community = "snmpv3"
+    snmp_policy.engine_id = "12121"
+    snmp_policy.snmp_port = 161
+    snmp_policy.sys_contact = "DA"
     snmp_user = SnmpUser(class_id="snmp.User",
                          object_type="snmp.User",
                          auth_type="SHA",
@@ -147,8 +147,8 @@ def create_snmp_policy():
                          auth_password="Auth_Snmp_user1",
                          privacy_password="Priv_Snmp_user1",
                          )
-    snmp_policy.set_attribute("snmp_users", [snmp_user])
-    snmp_policy.set_attribute("organization", organization)
+    snmp_policy.snmp_users = [snmp_user]
+    snmp_policy.organization = organization
 
     # example passing only required values which don't have defaults set
     try:
@@ -189,7 +189,7 @@ def attach_server_to_profile(server_profile_moid):
                                                   moid=rack_unit_moid)
 
     # Setting the attribute for server profile with assigned server and server profile moid.
-    server_profile.set_attribute("assigned_server", assigned_server)
+    server_profile.assigned_server = assigned_server
 
     # example passing only required values which don't have defaults set
     try:
@@ -210,7 +210,7 @@ def deploy_server_profile(server_profile_moid):
     server_profile = ServerProfile()
 
     # Setting the attribute for server profile with the action and server profile moid.
-    server_profile.set_attribute("action", "Deploy")
+    server_profile.action = "Deploy"
 
     # example passing only required values which don't have defaults set
     try:
@@ -237,7 +237,7 @@ def attach_policies_to_profile(policy_mapping, server_profile_moid):
     server_profile = ServerProfile()
 
     # Setting all the attributes for server_profile instance.
-    server_profile.set_attribute("policy_bucket", policy_bucket)
+    server_profile.policy_bucket = policy_bucket
 
     # example passing only required values which don't have defaults set
     try:
@@ -249,7 +249,6 @@ def attach_policies_to_profile(policy_mapping, server_profile_moid):
     except intersight.ApiException as e:
         print("Exception when calling ServerApi->patch_server_profile: %s\n" % e)
         sys.exit(1)
-
 
 # create a server profile
 server_profile_response = create_server_profile()

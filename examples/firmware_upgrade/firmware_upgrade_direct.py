@@ -43,9 +43,9 @@ def set_auth():
     # Creation of softwareRepository model instance.
     software_repository = SoftwarerepositoryAuthorization()
 
-    software_repository.set_attribute("repository_type", "Cisco")
-    software_repository.set_attribute("user_id", "user_id")
-    software_repository.set_attribute("password", "password")
+    software_repository.repository_type = "Cisco"
+    software_repository.user_id = "user_id"
+    software_repository.password = "password"
 
     try:
         # create a 'softwareRepositoryAuthorization' resource.
@@ -171,17 +171,17 @@ def update_server_firmware(assigned_server, sw_dist_moid):
     firmware_upgrade = FirmwareUpgrade()
 
     # Setting all the attributes for firmware_upgrade instance.
-    firmware_upgrade.set_attribute("direct_download", FirmwareDirectDownload(
+    firmware_upgrade.direct_download = FirmwareDirectDownload(
         upgradeoption="upgrade_mount_only"
-    ))
-    firmware_upgrade.set_attribute("network_share", FirmwareNetworkShare())
-    firmware_upgrade.set_attribute("upgrade_type", "direct_upgrade")
-    firmware_upgrade.set_attribute("server", assigned_server)
-    firmware_upgrade.set_attribute("distributable", FirmwareDistributableRelationship(
+    )
+    firmware_upgrade.network_share = FirmwareNetworkShare()
+    firmware_upgrade.upgrade_type = "direct_upgrade"
+    firmware_upgrade.server = assigned_server
+    firmware_upgrade.distributable = FirmwareDistributableRelationship(
         object_type="firmware.Distributable",
         class_id="mo.MoRef",
         moid=sw_dist_moid
-    ))
+    )
 
     try:
         # create a 'firmwareApi' resource.
