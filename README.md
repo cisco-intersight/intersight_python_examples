@@ -51,7 +51,10 @@
 
 - The latest intersight package can be installed using one of the following, 
     `pip install intersight`
+
     `pip install git+https://github.com/CiscoDevNet/intersight-python`
+
+    `python setup.py install --user`
 
 <a name="authentication"></a>
 
