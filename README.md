@@ -1,41 +1,64 @@
 ## Table of Contents
-1. [ Authentication ](#authentication)
-2. [ Creating an Object ](#creating-an-object)
-3. [ Creating an Object from JSON ](#creating-an-object-from-json)
-4. [ Reading Objects ](#reading-an-object)
-	
-	4.1. [ Reading Objects Using a Filter ](#reading-an-object-using-a-filter)
+1. [ Installation ](#installation)
 
-5. [ Updating Objects ](#updating-an-object)
-6. [ Deleting Objects ](#deleting-an-object)
-7. [ Examples](#examples)
+	1.1. [ Requirements ](#requirements)
 
-	7.1. [ Example - Server Configuration ](#server-configuration)
+	1.2. [ Install ](#install)
 
-	7.2. [ Example - Firmware Upgrade ](#firmware-upgrade)
+2. [ Authentication ](#authentication)
+3. [ Creating an Object ](#creating-an-object)
+4. [ Creating an Object from JSON ](#creating-an-object-from-json)
+5. [ Reading Objects ](#reading-an-object)
 
-	7.3. [ Example - OS Install ](#os-install)
+	5.1. [ Reading Objects Using a Filter ](#reading-an-object-using-a-filter)
 
-8. [ Targets ](#targets)
+6. [ Updating Objects ](#updating-an-object)
+7. [ Deleting Objects ](#deleting-an-object)
+8. [ Examples](#examples)
 
-	8.1. [ Claiming a Target ](#claiming-a-target)
-	
-	8.2. [ Unclaiming a Target ](#unclaiming-a-target)
-	
-	8.3. [ Claiming an Appliance ](#claiming-an-appliance)
-	
-9. [ Triggering a Workflow ](#triggering-a-workflow)
-10. [ Monitoring a Workflow ](#monitoring-a-workflow)
-11. [ Debugging ](#debugging)
+	8.1. [ Example - Server Configuration ](#server-configuration)
+
+	8.2. [ Example - Firmware Upgrade ](#firmware-upgrade)
+
+	8.3. [ Example - OS Install ](#os-install)
+
+9. [ Targets ](#targets)
+
+	9.1. [ Claiming a Target ](#claiming-a-target)
+
+	9.2. [ Unclaiming a Target ](#unclaiming-a-target)
+
+	9.3. [ Claiming an Appliance ](#claiming-an-appliance)
+
+10. [ Triggering a Workflow ](#triggering-a-workflow)
+11. [ Monitoring a Workflow ](#monitoring-a-workflow)
+12. [ Debugging ](#debugging)
 
 
 
 
 
+<a name="installation"></a>
+## 1. Installation
 
+<a name="requirements"></a>
+### 1.1. Requirements
+
+- Python >= 3.6
+
+<a name="install"></a>
+### 1.2. Install
+
+- The latest intersight package can be installed using one of the following, 
+    `pip install intersight`
+
+    `pip install git+https://github.com/CiscoDevNet/intersight-python`
+
+    `python setup.py install --user`
 
 <a name="authentication"></a>
-## 1. Authentication
+
+## 2. Authentication
 
 - Start with creating an API Client object by specifying an API Key and an API Secret file path.
 - This method also specifies which endpoint will the client connect to.
@@ -102,7 +125,7 @@ boot_precision_policy = BootPrecisionPolicy()
 api_response = api_instance.create_boot_precision_policy(boot_precision_policy)    
 ```
 <a name="creating-an-object"></a>
-## 2. Creating an Object
+## 3. Creating an Object
 
 This step helps user to create an object with the help of python intersight SDK.
 In the below example we are going to create a boot precision policy.
@@ -180,7 +203,7 @@ except intersight.ApiException as e:
 ```
 
 <a name="creating-an-object-from-json"></a>
-## 3. Creating an Object from JSON
+## 4. Creating an Object from JSON
 
 This step helps user to create an object with the help of python intersight SDK.
 In the below example we are going to create a boot precision policy.
@@ -257,7 +280,7 @@ except intersight.ApiException as e:
 ```
 
 <a name="reading-an-object"></a>
-## 4. Reading Objects
+## 5. Reading Objects
 
 This step helps user to read an object with the help of python intersight SDK.
 In the below example we are going to read all the results for boot precision policy.
@@ -287,7 +310,7 @@ except intersight.ApiException as e:
 ```
 
 <a name="reading-an-object-using-a-filter"></a>
-### 4.1. Reading Objects Using a Filter
+### 5.1. Reading Objects Using a Filter
 
 Intersight supports oData query format to return a filtered list of objects.
 An example is shown below. Here we filter devices that are in connected state.
@@ -310,7 +333,7 @@ for device in api_result.results:
 ```
 
 <a name="updating-an-object"></a>
-## 5. Updating Objects
+## 6. Updating Objects
 
 This step helps user to update an object with the help of python intersight SDK.
 In the below example we are going to update a boot precision policy.
@@ -437,7 +460,7 @@ except intersight.ApiException as e:
 ```
 
 <a name="deleting-an-object"></a>
-## 6. Deleting Objects
+## 7. Deleting Objects
 
 This step helps user to delete an object with the help of python intersight SDK.
 In the below example we are going to delete a boot precision policy.
@@ -498,29 +521,29 @@ except intersight.ApiException as e:
 ```
 
 <a name="examples"></a>
-## 7. Examples
+## 8. Examples
 
 <a name="server-configuration"></a>
-### 7.1. Example: Server Configuration
+### 8.1. Example: Server Configuration
 Please refer [Server Configuration](https://github.com/cisco-intersight/intersight_python_examples/blob/main/examples/server_configuration/server_configuration.py)
 
 <a name="firmware-upgrade"></a>
-### 7.2. Example: Firmware Upgrade
+### 8.2. Example: Firmware Upgrade
 Please refer [Direct Firmware Upgrade](https://github.com/cisco-intersight/intersight_python_examples/blob/main/examples/firmware_upgrade/firmware_upgrade_direct.py)
 
 Please refer [Network Firmware Upgrade](https://github.com/cisco-intersight/intersight_python_examples/blob/main/examples/firmware_upgrade/firmware_upgrade_network.py)
 
 
 <a name="os-install"></a>
-### 7.3. Example: OS Install
+### 8.3. Example: OS Install
 Please refer [OS Install](https://github.com/cisco-intersight/intersight_python_examples/blob/main/examples/os_install/os_install.py)
 
 
 <a name="targets"></a>
-## 8. Targets
+## 9. Targets
 
 <a name="claiming-a-target"></a>
-### 8.1. Claiming a Target
+### 9.1. Claiming a Target
 
 ```python
 from intersight.api import asset_api
@@ -553,7 +576,7 @@ except intersight.ApiException as e:
 ```
 
 <a name="unclaiming-a-target"></a>
-### 8.2. Unclaiming a Target
+### 9.2. Unclaiming a Target
 
 ```python
 from intersight.api import asset_api
@@ -583,7 +606,7 @@ except intersight.ApiException as e:
 ```
 
 <a name="claiming-an-appliance"></a>
-### 8.3. Claiming an Appliance
+### 9.3. Claiming an Appliance
 
 ```python
 from intersight.api import asset_api
@@ -618,12 +641,11 @@ except intersight.ApiException as e:
 ```
 
 <a name="triggering-a-workflow"></a>
-## 9. Triggering a Workflow
+## 10. Triggering a Workflow
 
 <a name="monitoring-a-workflow"></a>
-## 10. Monitoring a Workflow
+## 11. Monitoring a Workflow
 
 <a name="debugging"></a>
-## 11. Debugging
-
+## 12. Debugging
 
