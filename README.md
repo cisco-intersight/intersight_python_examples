@@ -1,4 +1,14 @@
-## Table of Contents
+# Cisco Intersight
+
+Cisco Intersight is a cloud operations platform that delivers intelligent visualization, optimization, and orchestration for applications and infrastructure across your hybrid environment. With Intersight, you get all of the benefits of SaaS delivery and full lifecycle management of distributed Intersight-connected servers and third-party storage across data centers, remote sites, branch offices, and edge environments. This empowers you to analyze, update, fix, and automate your environment in ways that were not possible with prior generations’ tools. As a result, your organization can achieve significant TCO savings and deliver applications faster in support of new business initiatives.
+
+The Cisco Intersight API is a programmatic interface that uses the REST architecture to provide access to the Intersight Management Information Model. The Intersight Python SDK is generated based on the Cisco Intersight OpenAPI 3.x specification. The latest specification can be downloaded from [here](https://intersight.com/apidocs/downloads/). The Cisco Intersight Python SDK is updated frequently to be in sync with the OpenAPI version deployed at https://intersight.com
+
+
+
+
+# Getting Started
+
 1. [ Installation ](#installation)
 
 	1.1. [ Requirements ](#requirements)
