@@ -84,7 +84,7 @@ if __name__ == "__main__":
     sw_fw_upgrade_moid = sw_fw_upgrade.moid
 
     # Monitor the workflow
-    status, message = monitor_workflow(fw_upgrade_moid)
+    status, message = monitor_workflow(sw_fw_upgrade_moid)
     if status:
         print(message)
     else:

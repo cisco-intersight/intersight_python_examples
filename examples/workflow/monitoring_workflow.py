@@ -12,7 +12,7 @@ api_key_file = "~/api_key_file_path"
 api_client = client.get_api_client(api_key, api_key_file)
 
 
-def monitor_workflow(fw_upgrade_moid):
+def monitor_workflow(workflow_monitoring_moid):
     """
     Function to monitor the workflow.
     :return: True if success , False if failure
@@ -22,7 +22,7 @@ def monitor_workflow(fw_upgrade_moid):
     workflow_api_instance = workflow_api.WorkflowApi(api_client)
 
     flt_workflow_moid = "WorkflowCtx.InitiatorCtx.InitiatorMoid eq '{0}'\
-     and Status eq 'RUNNING'".format(fw_upgrade_moid)
+     and Status eq 'RUNNING'".format(workflow_monitoring_moid)
 
     try:
         workflow_info_resp = workflow_api_instance.get_workflow_workflow_info_list(filter=flt_workflow_moid)
@@ -62,7 +62,7 @@ if __name__ == "__main__":
         print("Please input a valid moid.")
         sys.exit(1)
 
-    status, message = monitor_workflow(fw_upgrade_moid)
+    status, message = monitor_workflow(args.moid)
     if status:
         print(message)
     else:
