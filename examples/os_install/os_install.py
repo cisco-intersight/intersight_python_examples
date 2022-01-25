@@ -25,6 +25,9 @@ from intersight.model.organization_organization_relationship import Organization
 from intersight.model.compute_physical_relationship import ComputePhysicalRelationship
 from intersight.api import compute_api
 from intersight.model.os_install import OsInstall
+from intersight.model.os_configuration_file_relationship import OsConfigurationFileRelationship
+from intersight.model.os_ip_configuration import OsIpConfiguration
+from intersight.model.comm_ip_v4_interface import CommIpV4Interface
 from intersight.api import os_api
 from intersight.exceptions import NotFoundException
 from pprint import pprint
@@ -52,12 +55,34 @@ def create_policy_reference(policy_moid, obj_type):
 def create_catalog(catalog_result):
     moid = catalog_result.results[0].moid
     obj_type = catalog_result.results[0].object_type
-    class_id = catalog_result.results[0].class_id
     return SoftwarerepositoryCatalogRelationship(
         class_id="mo.MoRef",
         object_type=obj_type,
         moid=moid
     )
+
+
+def create_m2_virtual_drive():
+    return StorageM2VirtualDriveConfig(class_id="storage.M2VirtualDriveConfig",
+                                       object_type="storage.M2VirtualDriveConfig",
+                                       enable=False)
+
+
+def create_storage_r0drive():
+    virtual_drive_policy = StorageVirtualDrivePolicy(
+        class_id="storage.VirtualDrivePolicy",
+        object_type="storage.VirtualDrivePolicy",
+        strip_size=64,
+        access_policy="Default",
+        read_policy="Default",
+        write_policy="Default",
+        drive_cache="Default",
+    )
+    return StorageR0Drive(enable=True,
+                          drive_slots="1",
+                          virtual_drive_policy=virtual_drive_policy,
+                          class_id="storage.R0Drive",
+                          object_type="storage.R0Drive")
 
 
 def create_server_profile():
@@ -92,82 +117,7 @@ def create_server_profile():
         sys.exit(1)
 
 
-def create_disk_group_policy():
-    resp_dg_policy_lst = []
-    for index in range(2):
-        api_instance = storage_api.StorageApi(api_client)
-
-        # Create an instance of organization.
-        organization = create_organization()
-
-        # diskGroupPolicy | The 'storage.DiskGroupPolicy' resource to create.
-        dg_policy = StorageDiskGroupPolicy()
-
-        # Setting all the attributes for dg_policy instance.
-        dg_policy.name = f"sample_dg_policy_raid%d" % index
-        dg_policy.description = f"sample disk group policy for raid%d." % index
-        dg_policy.organization = organization
-
-        tags = [
-            MoTag(key="dg",
-                  value="dg_policy")
-        ]
-
-        dg_policy.tags = tags
-        dg_policy.use_jbods = True
-        dg_policy.raid_level = f"Raid%d" % index
-
-        if resp_dg_policy_lst:
-            span_groups = StorageSpanGroup(disks=[
-                StorageLocalDisk(slot_number=index + 1),
-                StorageLocalDisk(slot_number=index + 2),
-            ]
-            )
-            dg_policy.dedicated_hot_spares = [
-                StorageLocalDisk(slot_number=index + 3)
-            ]
-        else:
-            span_groups = StorageSpanGroup(disks=[
-                StorageLocalDisk(slot_number=index + 1)
-            ]
-            )
-
-        dg_policy.span_groups = [span_groups]
-        # example passing only required values which don't have defaults set
-        try:
-            # Create a 'storage.DiskGroupPolicy' resource.
-            resp_dg_policy = api_instance.create_storage_disk_group_policy(dg_policy)
-            pprint(resp_dg_policy)
-            resp_dg_policy_lst.append(resp_dg_policy)
-        except intersight.ApiException as e:
-            print("Exception when calling StorageApi->create_storage_disk_group_policy: %s\n" % e)
-            sys.exit(1)
-    return resp_dg_policy_lst
-
-
-def create_virtual_drives(dg_policy_moid_list):
-    result = []
-    for index, moid in zip(range(2), dg_policy_moid_list):
-        if result:
-            size = 100
-        else:
-            size = 102400
-        result.append(StorageVirtualDriveConfig(
-            name=f"vdrive%d" % index,
-            size=size,
-            disk_group_policy=moid,
-            access_policy="ReadWrite",
-            read_policy="Default",
-            write_policy="AlwaysWriteBack",
-            io_policy="Direct",
-            drive_cache="Enable",
-            expand_to_available=False,
-            boot_drive=False
-        ))
-    return result
-
-
-def create_storage_policy(dg_policy_moid):
+def create_storage_policy():
     api_instance = storage_api.StorageApi(api_client)
 
     # Create an instance of organization.
@@ -187,11 +137,13 @@ def create_storage_policy(dg_policy_moid):
     ]
 
     storage_policy.tags = tags
-    storage_policy.retain_policy_virtual_drives = False
     storage_policy.unused_disks_state = "UnconfiguredGood"
 
-    virtual_drives = create_virtual_drives(dg_policy_moid)
-    storage_policy.virtual_drives = virtual_drives
+    m2_virtual_drive = create_m2_virtual_drive()
+    storage_policy.m2_virtual_drive = m2_virtual_drive
+
+    storage_r0drive = create_storage_r0drive()
+    storage_policy.raid0_drive = storage_r0drive
 
     # example passing only required values which don't have defaults set
     try:
@@ -199,7 +151,7 @@ def create_storage_policy(dg_policy_moid):
         resp_storage_policy = api_instance.create_storage_storage_policy(storage_policy)
         pprint(resp_storage_policy)
         return resp_storage_policy
-    except intersight.ApiException as e:
+    except openapi_client.ApiException as e:
         print("Exception when calling StorageApi->:create_storage_storage_policy %s\n" % e)
         sys.exit(1)
 
@@ -467,23 +419,15 @@ def os_install(os_moid, osdu_moid):
 
 
 if __name__ == "__main__":
-    # 1. Create 2 Disk Group Policies and get the policy moid
-    dg_policy_raid0, dg_policy_raid1 = create_disk_group_policy()
-    dg_policy_raid0_moid = dg_policy_raid0.moid
-    dg_policy_raid1_moid = dg_policy_raid1.moid
-
-    # 2. Create new Storage Policy and get the policy moid.
-    storage_policy_response = create_storage_policy(
-        [dg_policy_raid0_moid,
-         dg_policy_raid1_moid]
-    )
+    # 1. Create new Storage Policy and get the policy moid.
+    storage_policy_response = create_storage_policy()
     storage_policy_response_moid = storage_policy_response.moid
 
-    # 3. Create new server profile and get the profile moid
+    # 2. Create new server profile and get the profile moid
     server_profile_response = create_server_profile()
     server_profile_moid = server_profile_response.moid
 
-    # 4. Assign the policy to the profile and verify it using restApi
+    # 3. Assign the policy to the profile and verify it using restApi
     # Creating a policy mapping with object Type as key and moid will be value.
     policies = {
         "storage.StoragePolicy": storage_policy_response_moid
@@ -495,10 +439,10 @@ if __name__ == "__main__":
     # assign a server to the server profile
     attach_server_to_profile(server_profile_moid)
 
-    # 5. Deploy the Profile to server.
+    # 4. Deploy the Profile to server.
     deploy_server_profile(server_profile_moid)
 
-    # 6. Create Osimage and Osdu Image.
+    # 5. Create Osimage and Osdu Image.
 
     # get catalog moid and create catalog
     catalog_moid = get_catalog_moid()
@@ -511,5 +455,5 @@ if __name__ == "__main__":
     os_image_moid = os_image_resp.moid
     osdu_image_moid = osdu_image_resp.moid
 
-    # 7. Install file based os on designated server
+    # 6. Install file based os on designated server
     os_install(os_image_moid, osdu_image_moid)
