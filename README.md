@@ -80,7 +80,7 @@ import re
 import sys
 
 
-def get_api_client(api_key_id, api_secret_file = None, private_key_string=None, endpoint="https://intersight.com"):
+def get_api_client(api_key_id, api_secret_file = None, private_key_string = None, proxy = None, endpoint="https://intersight.com"):
     if api_secret_file is None and private_key_string is None:
         print("Either api_secret_file or private_key_string is required to create api client")
         sys.exit(1)
@@ -120,6 +120,10 @@ def get_api_client(api_key_id, api_secret_file = None, private_key_string=None, 
     )
     # if you want to turn off certificate verification
     # configuration.verify_ssl = False
+
+    # setting proxy
+    if proxy is not None and proxy != "":
+        configuration.proxy = proxy
 
     return intersight.ApiClient(configuration)
 ```
